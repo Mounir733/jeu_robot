@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
             self.jump()
 
         # Appliquer la gravité
-        self.velocity.y += 0.7
+        self.velocity.y += 1
 
         self.rect.x += self.velocity.x
         self.rect.y += self.velocity.y

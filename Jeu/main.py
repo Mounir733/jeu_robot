@@ -19,7 +19,7 @@ pygame.display.set_caption("Jeu de Plateforme")
 
 # Création des groupes de sprites
 all_sprites = pygame.sprite.Group()
-player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
+player = Player()
 all_sprites.add(player)
 
 # Boucle de jeu
