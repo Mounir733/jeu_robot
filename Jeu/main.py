@@ -1,7 +1,6 @@
 import pygame
 import sys
-from player import Player
-from platform import Platform
+from Classes.Player.player import Player
 
 # Initialisation de Pygame
 pygame.init()
@@ -74,4 +73,4 @@ while running:
 
 # Quitter Pygame
 pygame.quit()
-sys.exit()
+sys.exit() 
