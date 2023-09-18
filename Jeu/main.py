@@ -7,8 +7,8 @@ from platform import Platform
 pygame.init()
 
 # Constantes
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 768
 WHITE = (255, 255, 255)
 
 # Création de la fenêtre du jeu
@@ -24,6 +24,16 @@ platform1 = Platform(100, 500, 200, 20)  # Example platform
 all_sprites.add(platform1)
 player = Player()
 all_sprites.add(player)
+
+# Chargement de l'image de fond
+fond = pygame.image.load("assets/backgrounds/niveau1.png")
+fond_rect = fond.get_rect()
+
+# Position du fond (initialisée à 0)
+fond_x = 0
+
+# Vitesse de défilement du fond
+vitesse_fond = 2
 
 # Boucle de jeu
 running = True
@@ -42,10 +52,23 @@ while running:
     # Mise à jour des sprites
     all_sprites.update()
 
+        # Mise à jour de la position du fond pour le faire défiler
+    fond_x -= vitesse_fond
+
+    # Si le fond atteint la fin de l'image, réinitialisez-le à 0
+    fond_x = 0
+
+    screen.blit(fond, (fond_x, 0))
+    screen.blit(fond, (fond_x + SCREEN_HEIGHT, 0))  # Deuxième copie pour le défilement continu
+
+
     # Affichage
     screen.fill(WHITE)
     all_sprites.draw(screen)
+    all_sprites.draw(fond)
+
     pygame.display.flip()
+    pygame.display.update()
 
 # Quitter Pygame
 pygame.quit()

@@ -1,49 +1,52 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    _SCREEN_WIDTH = 800
-    _SCREEN_HEIGHT = 600
+    _SCREEN_WIDTH = 1024
+    _SCREEN_HEIGHT = 768
 
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface((50, 50))
-        self.image.fill((0, 0, 255))  # Couleur bleue
+        self.original_image = pygame.image.load("assets/robots/OrangeRobot/SeparetedImages/OrangeRobot1.png")
+        self.image = pygame.transform.scale(self.original_image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.center = (self._SCREEN_WIDTH // 2, self._SCREEN_HEIGHT // 2)
         self.velocity = pygame.Vector2(0, 0)
-        self.jumping = False
-        self.jump_power = -200
-    
+        self.gravity = 0.3
+        self.jump_power = -14
+        self.on_ground = False
+
     def jump(self):
-        if not self.jumping:
+        if self.on_ground:
             self.velocity.y = self.jump_power
-            self.jumping = True
+            self.on_ground = False  # Définir le joueur comme étant en l'air
 
     def update(self):
-        self.velocity = pygame.Vector2(0, 0)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             self.velocity.x = -5
-        if keys[pygame.K_RIGHT]:
+        elif keys[pygame.K_RIGHT]:
             self.velocity.x = 5
-        if keys[pygame.K_SPACE]:
+        else:
+            self.velocity.x = 0
+
+        if keys[pygame.K_SPACE]:  # Gestion de la touche Espace pour le saut
             self.jump()
 
-        # Appliquer la gravité
-        self.velocity.y += 1
+        if not self.on_ground:
+            self.velocity.y += self.gravity
+        else:
+            self.velocity.y = 0
 
         self.rect.x += self.velocity.x
         self.rect.y += self.velocity.y
 
-        # Empêcher le joueur de sortir de l'écran
         if self.rect.left < 0:
             self.rect.left = 0
         if self.rect.right > self._SCREEN_WIDTH:
             self.rect.right = self._SCREEN_WIDTH
         if self.rect.top < 0:
             self.rect.top = 0
+
         if self.rect.bottom > self._SCREEN_HEIGHT:
             self.rect.bottom = self._SCREEN_HEIGHT
-            # Vérifier si le joueur a touché le sol
-        if self.rect.bottom >= self._SCREEN_HEIGHT:
-            self.jumping = False
+            self.on_ground = True  # Le joueur touche le sol
