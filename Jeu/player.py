@@ -11,6 +11,13 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self._SCREEN_WIDTH // 2, self._SCREEN_HEIGHT // 2)
         self.velocity = pygame.Vector2(0, 0)
+        self.jumping = False
+        self.jump_power = -200
+    
+    def jump(self):
+        if not self.jumping:
+            self.velocity.y = self.jump_power
+            self.jumping = True
 
     def update(self):
         self.velocity = pygame.Vector2(0, 0)
@@ -19,9 +26,11 @@ class Player(pygame.sprite.Sprite):
             self.velocity.x = -5
         if keys[pygame.K_RIGHT]:
             self.velocity.x = 5
+        if keys[pygame.K_SPACE]:
+            self.jump()
 
         # Appliquer la gravité
-        self.velocity.y += 1
+        self.velocity.y += 0.7
 
         self.rect.x += self.velocity.x
         self.rect.y += self.velocity.y
@@ -35,3 +44,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom > self._SCREEN_HEIGHT:
             self.rect.bottom = self._SCREEN_HEIGHT
+            # Vérifier si le joueur a touché le sol
+        if self.rect.bottom >= self._SCREEN_HEIGHT:
+            self.jumping = False
