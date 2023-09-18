@@ -62,4 +62,4 @@ while running:
 
 # Quitter Pygame
 pygame.quit()
-sys.exit()
+sys.exit() 
