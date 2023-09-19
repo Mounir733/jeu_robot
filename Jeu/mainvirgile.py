@@ -21,7 +21,30 @@ WHITE = (255, 255, 255)
 # Création de la fenêtre du jeu
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Jeu de Plateforme")
-    
+
+# Classe de la camera
+class Camera(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
+        # camera offset
+        self.offset = pygame.math.Vector2(300,100)
+
+        # ground
+        self.ground_surf = pygame.image.load().convert_alpha()
+        self.fround_rect = self.ground_surf.get_rect(topleft  =(0,0))
+
+    def custom_draw(self):
+
+        # ground
+        ground_offset = self.ground_rect.topleft + self.offset
+        self.display_surface.blit(self.ground_surf,self.ground_rect)
+
+        # active elements  
+        for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
+            offset_pos = sprite.rect.topleft + self.offset
+            self.display_surface.blit(sprite.image,offset_pos)  
 
 # Classe du joueur
 
@@ -99,10 +122,11 @@ while running:
 
     # Affichage
     screen.fill(WHITE)
-    all_sprites.draw(screen)
-    all_sprites.draw(fond)
     plateformes.draw(screen)
     plateformes.draw(fond)
+    all_sprites.draw(screen)
+    all_sprites.draw(fond)
+    
 
     pygame.display.flip()
     pygame.display.update()
