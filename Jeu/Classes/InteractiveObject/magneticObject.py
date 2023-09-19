@@ -1,9 +1,9 @@
 import pygame
-import InteractiveObject
+from Classes.InteractiveObject.interactiveObject import InteractiveObject
 
 class MagneticObject(InteractiveObject):
-    def __init__(self, x, y, width, height, color, magnetic_type):
-        super().__init__(x, y, width, height, color)
+    def __init__(self, x, y, sprite_image, magnetic_type):
+        super().__init__(x, y, sprite_image)
         self.magnetic_type = magnetic_type  # Type d'aimant (1 pour attractif, -1 pour répulsif)
 
     def interact(self, player):
