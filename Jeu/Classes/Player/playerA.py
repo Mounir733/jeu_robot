@@ -4,7 +4,7 @@ class Player(pygame.sprite.Sprite):
     _SCREEN_WIDTH = 1024
     _SCREEN_HEIGHT = 768
 
-    def __init__(self):
+    def __init__(self, obstacles_group):
         super().__init__()
         self.images_right = []  # Liste pour stocker les images d'animation orientées vers la droite
         self.images_left = []   # Liste pour stocker les images d'animation orientées vers la gauche
@@ -13,6 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.load_images()      # Chargez les images dans les listes
         self.image = self.images_right[self.image_index]  # Par défaut, utilisez les images orientées vers la droite
         self.rect = self.image.get_rect()
+        # self.rect.width = 30  Largeur réduite à 30 pixels
         self.rect.center = (self._SCREEN_WIDTH // 2, self._SCREEN_HEIGHT // 2)
         self.velocity = pygame.Vector2(0, 0)
         self.gravity = 0.04
@@ -22,6 +23,12 @@ class Player(pygame.sprite.Sprite):
         self.animation_delay = 100  # Délai entre les images en millisecondes
         self.last_animation_time = pygame.time.get_ticks()  # Temps du dernier changement d'image
         self.direction = "right"  # Par défaut, le personnage regarde vers la droite
+        # Ajoutez ces deux attributs pour suivre la position précédente
+        self.prev_x = self.rect.x
+        self.prev_y = self.rect.y
+        self.obstacles_group = obstacles_group  # Passer le groupe d'obstacles à la classe Player
+        self.on_platforme = False
+
 
 
     def load_images(self):
@@ -51,6 +58,9 @@ class Player(pygame.sprite.Sprite):
             self.on_ground = False  # Définir le joueur comme étant en l'air
 
     def update(self):
+                # Sauvegardez la position actuelle comme position précédente
+        self.prev_x = self.rect.x
+        self.prev_y = self.rect.y
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             self.velocity.x = -self.speed
@@ -69,11 +79,43 @@ class Player(pygame.sprite.Sprite):
         else:
             self.velocity.y = 0
 
+
+
+        self.rect.x += self.velocity.x
+        self.rect.y += self.velocity.y
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > self._SCREEN_WIDTH:
+            self.rect.right = self._SCREEN_WIDTH
+        if self.rect.top < 0:
+            self.rect.top = 0
+
+        if self.rect.bottom > self._SCREEN_HEIGHT:
+            self.rect.bottom = self._SCREEN_HEIGHT
+            self.on_ground = True  # Le joueur touche le sol
+
+        # Si le joueur est en collision avec l'obstacle uniquement sur l'axe vertical, réinitialisez sa position horizontale
+        collisions = pygame.sprite.spritecollide(self, self.obstacles_group, False)
+        if collisions:
+            self.rect.x = self.prev_x
+            self.on_ground = True 
+
+        if not collisions and self.rect.bottom < self._SCREEN_HEIGHT:
+            self.on_ground = False
+
+        if collisions and not self.on_ground:
+            collisions = False
+
+        if self.rect.bottom > self._SCREEN_HEIGHT:
+            self.on_ground = True  # Le joueur touche le sol
+            self.rect.bottom = self._SCREEN_HEIGHT
+
         now = pygame.time.get_ticks()
         if now - self.last_animation_time > self.animation_delay:
             self.last_animation_time = now
 
-            if self.on_ground == False:
+            if self.on_ground == False or collisions:
                 # Animation de saut
                 self.image_index += 1
                 if self.image_index < len(self.images_jump):
@@ -91,6 +133,7 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.images_right[self.image_index]
                 else:
                     self.image = self.images_left[self.image_index]
+
             else:
                 self.image_index = 0
                 # Si le personnage ne se déplace pas, utilisez l'image actuelle
@@ -98,17 +141,15 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.images_right[self.image_index]
                 else:
                     self.image = self.images_left[self.image_index]
+            
 
-        self.rect.x += self.velocity.x
-        self.rect.y += self.velocity.y
 
-        if self.rect.left < 0:
-            self.rect.left = 0
-        if self.rect.right > self._SCREEN_WIDTH:
-            self.rect.right = self._SCREEN_WIDTH
-        if self.rect.top < 0:
-            self.rect.top = 0
 
-        if self.rect.bottom > self._SCREEN_HEIGHT:
-            self.rect.bottom = self._SCREEN_HEIGHT
-            self.on_ground = True  # Le joueur touche le sol
+
+
+
+
+
+
+
+            

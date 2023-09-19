@@ -1,6 +1,7 @@
 import pygame
 import sys
 from Classes.Player.playerA import Player
+from Classes.Obstacle.obstacle import Obstacle
 
 # Initialisation de pygame
 pygame.init()
@@ -48,23 +49,24 @@ def main_game():
     # Constantes
     SCREEN_WIDTH = 1024
     SCREEN_HEIGHT = 768
-    WHITE = (255, 255, 255)
 
     # Création de la fenêtre du jeu
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Jeu de Plateforme")
 
-    # Classe du joueur
+    # Créez une instance d'obstacle (ajoutez-le à votre scène)
+    obstacle = Obstacle(750, 674)
+    obstacles_group = pygame.sprite.Group()
+    obstacles_group.add(obstacle)
 
         
     # Création des groupes de sprites
     all_sprites = pygame.sprite.Group()
-    player = Player()
+    player = Player(obstacles_group)
     all_sprites.add(player)
 
     # Chargement de l'image de fond
     fond = pygame.image.load("assets/backgrounds/niveau1.png")
-    fond_rect = fond.get_rect()
 
     # Position du fond (initialisée à 0)
     fond_x = 0
@@ -95,8 +97,19 @@ def main_game():
         screen.blit(fond, (fond_x + SCREEN_HEIGHT, 0))  # Deuxième copie pour le défilement continu
 
     
+        # Vérifiez la collision entre le joueur et l'obstacle
+        collisions = pygame.sprite.spritecollide(player, obstacles_group, False)
+        if collisions:
+            # Gérez la collision ici en empêchant le joueur de passer à travers l'obstacle
+            player.rect.x = player.prev_x  # Réinitialisez la position du joueur à la position précédente
+            player.rect.y = player.prev_y
+        else:
+            player.on_ground == False
 
 
+        # Dessinez l'obstacle
+        obstacles_group.update()
+        obstacles_group.draw(screen)
 
 
 
