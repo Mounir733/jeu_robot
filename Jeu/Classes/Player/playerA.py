@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity = pygame.Vector2(0, 0)
         self.gravity = 0.04
         self.jump_power = -3
-        self.speed = 1.25
+        self.speed = 1.5
         self.on_ground = False
         self.animation_delay = 100  # Délai entre les images en millisecondes
         self.last_animation_time = pygame.time.get_ticks()  # Temps du dernier changement d'image
@@ -73,15 +73,7 @@ class Player(pygame.sprite.Sprite):
         if now - self.last_animation_time > self.animation_delay:
             self.last_animation_time = now
 
-            if self.velocity.x != 0:
-                self.image_index += 1
-                if self.image_index >= len(self.images_right):
-                    self.image_index = 0
-                if self.direction == "right":
-                    self.image = self.images_right[self.image_index]
-                else:
-                    self.image = self.images_left[self.image_index]
-            elif self.on_ground == False:
+            if self.on_ground == False:
                 # Animation de saut
                 self.image_index += 1
                 if self.image_index < len(self.images_jump):
@@ -91,6 +83,14 @@ class Player(pygame.sprite.Sprite):
                         self.image = pygame.transform.flip(self.images_jump[self.image_index], True, False)
                 else:
                     self.image_index = len(self.images_jump) - 1
+            elif self.velocity.x != 0:
+                self.image_index += 1
+                if self.image_index >= len(self.images_right):
+                    self.image_index = 0
+                if self.direction == "right":
+                    self.image = self.images_right[self.image_index]
+                else:
+                    self.image = self.images_left[self.image_index]
             else:
                 self.image_index = 0
                 # Si le personnage ne se déplace pas, utilisez l'image actuelle
