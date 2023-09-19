@@ -34,7 +34,7 @@ oreVein = OreVein(300, 700, objInteract, "Red_Crystal")
 all_sprites.add(oreVein)
 
 objInteract2 = "assets/objets_interactibles/objetMagnetique.png"
-objMagn = MagneticObject(400, 700, objInteract2, 1)
+objMagn = MagneticObject(400, 400, objInteract2, -1, 300, 1, ["right", "down"])
 all_sprites.add(objMagn)
 
 # Position du fond (initialisée à 0)
@@ -52,6 +52,9 @@ while running:
 
     # Mise à jour des sprites
     all_sprites.update()
+
+    # Interaction entre l'objet magnétique et le joueur
+    objMagn.interact(player)
 
         # Mise à jour de la position du fond pour le faire défiler
     fond_x -= vitesse_fond

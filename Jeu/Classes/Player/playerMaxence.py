@@ -51,5 +51,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.bottom = self._SCREEN_HEIGHT
             self.on_ground = True  # Le joueur touche le sol
 
+
     def has_magnet():
         return True
