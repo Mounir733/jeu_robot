@@ -30,11 +30,12 @@ fond_rect = fond.get_rect()
 
 ###Chargement Objets Maxence###
 objInteract = "assets/objets_interactibles/Red_crystal1.png"
-oreVein = OreVein(300, 700, objInteract, "Red_Crystal")
+oreVein = OreVein(300, 700, objInteract, 100, 4)
+ore_veins = [oreVein]
 all_sprites.add(oreVein)
 
 objInteract2 = "assets/objets_interactibles/objetMagnetique.png"
-objMagn = MagneticObject(400, 400, objInteract2, -1, 300, 1, ["right", "down"])
+objMagn = MagneticObject(400, 500, objInteract2, -1, 400, 2, ["right", "bottom"] )
 all_sprites.add(objMagn)
 
 # Position du fond (initialisée à 0)
@@ -55,6 +56,17 @@ while running:
 
     # Interaction entre l'objet magnétique et le joueur
     objMagn.interact(player)
+
+    # Dans la boucle de jeu
+    keys = pygame.key.get_pressed()
+    
+    if keys[pygame.K_e]:
+        for ore_vein in ore_veins:
+            ore_vein.interact(player)
+        # Gestion de la durée de collecte du joueur
+        
+
+            
 
         # Mise à jour de la position du fond pour le faire défiler
     fond_x -= vitesse_fond

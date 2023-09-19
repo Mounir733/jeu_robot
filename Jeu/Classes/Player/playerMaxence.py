@@ -51,6 +51,14 @@ class Player(pygame.sprite.Sprite):
             self.rect.bottom = self._SCREEN_HEIGHT
             self.on_ground = True  # Le joueur touche le sol
 
+    #####Maxence#######
 
     def has_magnet():
         return True
+    
+    def collect_ore(self, ore_vein):
+        if ore_vein.collecting_timer > 0:
+            self.collecting_timer -= 1
+            return True
+        else:
+            return False
