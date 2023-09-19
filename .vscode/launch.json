@@ -8,7 +8,7 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "Jeu/main.py",
+            "program": "Jeu/menu.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }
