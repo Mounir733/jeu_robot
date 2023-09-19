@@ -104,8 +104,6 @@ class Player(pygame.sprite.Sprite):
         if not collisions and self.rect.bottom < self._SCREEN_HEIGHT:
             self.on_ground = False
 
-        if collisions and not self.on_ground:
-            collisions = False
 
         if self.rect.bottom > self._SCREEN_HEIGHT:
             self.on_ground = True  # Le joueur touche le sol
@@ -115,7 +113,7 @@ class Player(pygame.sprite.Sprite):
         if now - self.last_animation_time > self.animation_delay:
             self.last_animation_time = now
 
-            if self.on_ground == False or collisions:
+            if self.on_ground == False:
                 # Animation de saut
                 self.image_index += 1
                 if self.image_index < len(self.images_jump):
