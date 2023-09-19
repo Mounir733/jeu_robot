@@ -1,9 +1,9 @@
 from typing import Iterable, Union
 import pygame
 import sys
-
 from pygame.sprite import AbstractGroup
 from Classes.Player.player import Player
+from Classes.Player.playerA import Player
 from Classes.Plateforme.plateforme import Plateforme
 import pygame
 from pygame.locals import *
