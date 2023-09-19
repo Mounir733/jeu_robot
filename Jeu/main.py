@@ -19,9 +19,6 @@ pygame.display.set_caption("Jeu de Plateforme")
 
 # Création des groupes de sprites
 all_sprites = pygame.sprite.Group()
-platform1 = Platform(200, 600, 200, 50)
-platform2 = Platform(500, 400, 200, 50)   # Example platform
-all_sprites.add(platform1,platform2)
 player = Player()
 all_sprites.add(player)
 
@@ -51,6 +48,7 @@ while running:
     # Player is on a platform, handle jumping and gravity accordingly
         player.is_jumping = False
         player.rect.y = collide_list[0].rect.top # Place player on top of the platform
+        player.on_ground
     # Player is in the air, apply gravity or allow jumping
 
         # Mise à jour de la position du fond pour le faire défiler
