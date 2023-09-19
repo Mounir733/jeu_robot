@@ -3,7 +3,6 @@ import pygame
 import sys
 from pygame.sprite import AbstractGroup
 from Classes.Player.player import Player
-from Classes.Player.playerA import Player
 
 # Initialisation de Pygame
 pygame.init()
@@ -28,7 +27,10 @@ all_sprites.add(player)
 
 # Chargement de l'image de fond
 fond = pygame.image.load("assets/backgrounds/niveau1.png")
-fond_rect = fond.get_rect()
+background_surface = pygame.Surface((fond.get_width(), fond.get_height()))
+background_surface.blit(fond, (0, 0))
+background_x = 0
+background_y = 0
 
 # Position du fond (initialisée à 0)
 fond_x = 0
@@ -75,6 +77,7 @@ while running:
 
     # Affichage
     screen.fill(WHITE)
+    screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
     all_sprites.draw(screen)
     all_sprites.draw(fond)
 

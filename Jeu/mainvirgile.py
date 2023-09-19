@@ -19,28 +19,35 @@ WHITE = (255, 255, 255)
 # Création de la fenêtre du jeu
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Jeu de Plateforme")
+"""screen.fill((120, 120, 0))
+pygame.display.flip()
+pygame.display.update()
 
 
-'''# Classe camera2
-class Camera2:
-    def __init__(self, width, height):
-        self.camera_rect = pygame.Rect(0, 0, width, height)
-        self.width = width
-        self.height = height
+starting = True
+while starting:
+    event = pygame.event.wait()
+    if event.type == QUIT:
+        pygame.quit()
+        sys.exit()
+    elif event.type == KEYDOWN:
+        if event.key == K_SPACE:
+            starting=False"""
 
-    def apply(self, entity):
-        return entity.rect.move(self.camera_rect.topleft)
 
-    def update(self, target):
-        x = -target.rect.centerx + int(self.width / 2)
-        y = -target.rect.centery + int(self.height / 2)
+"""screen.fill((60, 0, 60))
+pygame.display.flip()
+pygame.display.update()
 
-        # Limit the camera movement to stay within the game world boundaries
-        x = min(0, x)  # Adjust as needed for your game
-        y = min(0, y)  # Adjust as needed for your game
-
-        self.camera_rect = pygame.Rect(x, y, self.width, self.height)'''
-
+starting = True
+while starting:
+    event = pygame.event.wait()
+    if event.type == QUIT:
+        pygame.quit()
+        sys.exit()
+    elif event.type == KEYDOWN:
+        if event.key == K_SPACE:
+            starting=False
 # Classe de la camera
 class Camera(pygame.sprite.Group):
     def __init__(self):
@@ -92,26 +99,24 @@ class Camera(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft + self.offset
             self.display_surface.blit(sprite.image,offset_pos)  
 
-        pygame.draw.rect(self.display_surface,'yellow',self.camera_rect, 5)
+        pygame.draw.rect(self.display_surface,'yellow',self.camera_rect, 5)"""
 
 # Classe du joueur
 
 
 # Création des groupes de sprites
-all_sprites = Camera()
+all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
 # Chargement de l'image de fond
 fond = pygame.image.load("assets/backgrounds/niveau1.png")
+new_width = int((SCREEN_HEIGHT / fond.get_height()) * fond.get_width())
+fond = pygame.transform.scale(fond, (new_width, SCREEN_HEIGHT))
 background_surface = pygame.Surface((fond.get_width(), fond.get_height()))
 background_surface.blit(fond, (0, 0))
 background_x = 0
 background_y = 0
-fond_rect = fond.get_rect()
-heit = str(fond.get_width())
-print(heit)
-print(str(fond.get_height()))
 
 # Position du fond (initialisée à 0)
 fond_x = 0
@@ -122,11 +127,9 @@ vitesse_fond = 2
 # Créez des instances de plateformes
 plateformes = pygame.sprite.Group()
 plateforme1 = Plateforme(100, 500, 200, 20)
-plateforme2 = Plateforme(300, 400, 150, 20)
-plateforme3 = Plateforme(500, 300, 200, 20)
 
 # Ajoutez les plateformes à la liste
-plateformes.add(plateforme1, plateforme2, plateforme3)
+plateformes.add(plateforme1)
 
 
 # Boucle de jeu
@@ -136,8 +139,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
-
-
     # Mise à jour des sprites
     all_sprites.update()
     collide_list = pygame.sprite.spritecollide(player, all_sprites, False)
@@ -152,12 +153,8 @@ while running:
 
         # Mise à jour de la position du fond pour le faire défiler
     fond_x -= vitesse_fond
+    #background_x += (player.velocity.x)/10
 
-    # Si le fond atteint la fin de l'image, réinitialisez-le à 0
-    fond_x = 0
-
-    screen.blit(fond, (fond_x, 0))
-    screen.blit(fond, (fond_x + SCREEN_HEIGHT, 0))  # Deuxième copie pour le défilement continu
 
     # Gestion des collisions entre le joueur et les plateformes
     collisions = pygame.sprite.spritecollide(player, plateformes, False)
@@ -172,16 +169,13 @@ while running:
             if on_platform:
                 if keys[pygame.K_SPACE]:  # Gestion de la touche Espace pour le saut
                     player.jump()
-
-
-
+                    
 
     # Affichage
     #screen.fill(WHITE)
     screen.fill((0, 0, 0))
     screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
     plateformes.draw(screen)
-    plateformes.draw(fond)
     all_sprites.draw(screen)
     
 

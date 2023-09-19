@@ -67,6 +67,13 @@ def main_game():
 
     # Chargement de l'image de fond
     fond = pygame.image.load("assets/backgrounds/niveau1.png")
+    new_width = int((SCREEN_HEIGHT / fond.get_height()) * fond.get_width())
+    fond = pygame.transform.scale(fond, (new_width, SCREEN_HEIGHT))
+    background_surface = pygame.Surface((fond.get_width(), fond.get_height()))
+    background_surface.blit(fond, (0, 0))
+    background_x = 0
+    background_y = 0
+
 
     # Position du fond (initialisée à 0)
     fond_x = 0
@@ -107,11 +114,12 @@ def main_game():
             player.on_ground == False
 
 
+        screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
+
+
         # Dessinez l'obstacle
         obstacles_group.update()
         obstacles_group.draw(screen)
-
-
 
         # Affichage
         all_sprites.draw(screen)
