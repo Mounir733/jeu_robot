@@ -59,7 +59,7 @@ while starting:
 pygame.mixer.music.load('assets/music/a-calm-soulful-atmosphere-for-a-documentary-film-166464.mp3')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.stop()
-pygame.mixer.music.load('assets\music\pendulum-of-peril-165586.mp3')
+pygame.mixer.music.load('assets\music\menu_space-atmospheric-background-124841.mp3')
 pygame.mixer.music.play(-1)
 
 # Création des groupes de sprites
