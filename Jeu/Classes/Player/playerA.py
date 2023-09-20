@@ -33,6 +33,8 @@ class Player(pygame.sprite.Sprite):
         self.on_platforme = False
         self.step_sound = pygame.mixer.Sound("assets\sound\concrete-footsteps-6752.mp3")
         self.jump_sound = pygame.mixer.Sound("assets\sound\mixkit-player-jumping-in-a-video-game-2043.wav")
+        self.jump_sound.set_volume(0.5)
+
 
 
         # Attributs pour gérer l'animation d'attaque
