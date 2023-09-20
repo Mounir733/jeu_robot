@@ -15,6 +15,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         # self.rect.width = 30  Largeur réduite à 30 pixels
         self.rect.center = (self._SCREEN_WIDTH // 2, self._SCREEN_HEIGHT // 2)
+
+
         self.velocity = pygame.Vector2(0, 0)
         self.gravity = 0.04
         self.jump_power = -3
@@ -33,14 +35,14 @@ class Player(pygame.sprite.Sprite):
 
     def load_images(self):
             idle_image = pygame.image.load("assets/robots/OrangeRobot/SeparetedImages/OrangeRobot1.png")
-            idle_image = pygame.transform.scale(idle_image, (150, 150))  # Redimensionnez à la taille souhaitée
+            idle_image = pygame.transform.scale(idle_image, (70, 70))  # Redimensionnez à la taille souhaitée
             self.images_right.append(idle_image)
             self.images_left.append(pygame.transform.flip(idle_image, True, False))
             
             # Chargez toutes les images d'animation et ajoutez-les à la liste
             for i in range(6, 12):  # Supposons que vous ayez 3 images numérotées
                 image = pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png")  # Remplacez par vos noms d'image
-                image = pygame.transform.scale(image, (150, 150))  # Redimensionnez à la taille souhaitée
+                image = pygame.transform.scale(image, (70, 70))  # Redimensionnez à la taille souhaitée
                 self.images_right.append(image)
                 # Inversez et ajoutez les images orientées vers la gauche
                 image_left = pygame.transform.flip(image, True, False)
@@ -49,7 +51,7 @@ class Player(pygame.sprite.Sprite):
                     # Chargez les images d'animation de saut (images 12 à 15)
             for i in range(12, 16):
                 image_jump = pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png")
-                image_jump = pygame.transform.scale(image_jump, (150, 150))  # Redimensionnez à la taille souhaitée
+                image_jump = pygame.transform.scale(image_jump, (70, 70))  # Redimensionnez à la taille souhaitée
                 self.images_jump.append(image_jump)
 
     def jump(self):

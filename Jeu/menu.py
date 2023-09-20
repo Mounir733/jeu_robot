@@ -55,9 +55,11 @@ def main_game():
     pygame.display.set_caption("Jeu de Plateforme")
 
     # Créez une instance d'obstacle (ajoutez-le à votre scène)
-    obstacle = Obstacle(750, 590)
+    obstacle = Obstacle(750, 590, "assets/obstacles/big_box.png",100,100)
+    obstacle2 = Obstacle(200, 490, "assets/obstacles/small_box.png",50,50)
     obstacles_group = pygame.sprite.Group()
     obstacles_group.add(obstacle)
+    obstacles_group.add(obstacle2)
 
         
     # Création des groupes de sprites
@@ -85,6 +87,7 @@ def main_game():
     vitesse_fond = 2
 
 
+
     # Boucle de jeu
     running = True
     while running:
@@ -103,10 +106,14 @@ def main_game():
         # Si le fond atteint la fin de l'image, réinitialisez-le à 0
         fond_x = 0
 
+
+
+
         screen.blit(fond, (fond_x, 0))
         screen.blit(fond, (fond_x + SCREEN_HEIGHT, 0))  # Deuxième copie pour le défilement continu
 
-    
+
+               
         # Vérifiez la collision entre le joueur et l'obstacle
         collisions = pygame.sprite.spritecollide(player, obstacles_group, False)
         if collisions:
