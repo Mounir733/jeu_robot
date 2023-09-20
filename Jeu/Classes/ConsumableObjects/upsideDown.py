@@ -8,11 +8,13 @@ class UpsideDown(Consumable):
         self.time_effect = 360
 
     def consume(self, player):
-        if not self.consumed and self.effect_active > 0:
+        if self.consumed and self.time_effect > 0:
             self.time_effect -= 1
             player.gravity = -0.04
-            player.jump_power = 3
-            print("iuo")
+            print(self.time_effect)
+        else:
+            player.gravity = 0.04
+            
 
         if self.rect.colliderect(player.rect):
             self.consumed = True

@@ -133,7 +133,6 @@ def main_game():
                 all_sprites.remove(ore_vein)
 
         magneticObject.interact(player)
-
         
         is_consume = consomable.consume(player)
         if is_consume:
@@ -164,6 +163,7 @@ def main_game():
         else:
             player.on_ground == False
 
+        
 
         screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
         #dessine le compteur minerai
