@@ -91,7 +91,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.top < 0:
             self.rect.top = 0
 
-        if self.rect.bottom > self._SCREEN_HEIGHT:
+        if self.rect.bottom > self._SCREEN_HEIGHT - 90:
             self.rect.bottom = self._SCREEN_HEIGHT
             self.on_ground = True  # Le joueur touche le sol
 
@@ -101,13 +101,13 @@ class Player(pygame.sprite.Sprite):
             self.rect.x = self.prev_x
             self.on_ground = True 
 
-        if not collisions and self.rect.bottom < self._SCREEN_HEIGHT:
+        if not collisions and self.rect.bottom < self._SCREEN_HEIGHT - 90:
             self.on_ground = False
 
 
-        if self.rect.bottom > self._SCREEN_HEIGHT:
+        if self.rect.bottom > self._SCREEN_HEIGHT - 90:
             self.on_ground = True  # Le joueur touche le sol
-            self.rect.bottom = self._SCREEN_HEIGHT
+            self.rect.bottom = self._SCREEN_HEIGHT - 90
 
         now = pygame.time.get_ticks()
         if now - self.last_animation_time > self.animation_delay:

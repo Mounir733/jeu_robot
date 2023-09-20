@@ -29,16 +29,16 @@ def show_menu():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée
+        fond = pygame.image.load("assets/backgrounds/space.jpg")
 
-        # Effacer l'écran
-        screen.fill(WHITE)
+        screen.blit(fond, (0, 0))
 
         # Afficher le titre du jeu
-        title_text = font.render("Mon Super Jeu", True, BLACK)
+        title_text = font.render("KingOfMagnet", True, WHITE)
         screen.blit(title_text, (300, 200))
 
         # Afficher les instructions
-        instructions_text = font.render("Appuyez sur Espace pour commencer", True, BLACK)
+        instructions_text = font.render("Appuyez sur Espace pour commencer", True, WHITE)
         screen.blit(instructions_text, (250, 300))
 
         pygame.display.flip()
@@ -55,7 +55,7 @@ def main_game():
     pygame.display.set_caption("Jeu de Plateforme")
 
     # Créez une instance d'obstacle (ajoutez-le à votre scène)
-    obstacle = Obstacle(750, 674)
+    obstacle = Obstacle(750, 590)
     obstacles_group = pygame.sprite.Group()
     obstacles_group.add(obstacle)
 
@@ -67,10 +67,13 @@ def main_game():
 
     # Chargement de l'image de fond
     fond = pygame.image.load("assets/backgrounds/niveau1.png")
+    sol = pygame.image.load("assets/backgrounds/sol.png")
     new_width = int((SCREEN_HEIGHT / fond.get_height()) * fond.get_width())
     fond = pygame.transform.scale(fond, (new_width, SCREEN_HEIGHT))
+    sol = pygame.transform.scale(sol, (new_width, SCREEN_HEIGHT))
     background_surface = pygame.Surface((fond.get_width(), fond.get_height()))
     background_surface.blit(fond, (0, 0))
+    background_surface.blit(sol, (0, 0))
     background_x = 0
     background_y = 0
 
