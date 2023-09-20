@@ -18,18 +18,24 @@ class MagneticObject(InteractiveObject):
 
         distance = max(1, (dx ** 2 + dy ** 2) ** 0.5)  # Évite la division par zéro
 
+        dansLargeurObjet = False
+        if self.rect.top <= player.rect.centery <= self.rect.bottom:
+            dansLargeurObjet = True
+        else:
+            dansLargeurObjet = False
+
         if distance < self.field_range:
-            if "left" in self.field_directions and dx > 0:
+            if "left" in self.field_directions and dansLargeurObjet:
                 force_x -= self.magnetic_type * self.force
-            if "right" in self.field_directions and dx < 0:
+            if "right" in self.field_directions and dansLargeurObjet:
                 force_x += self.magnetic_type * self.force
-            if "up" in self.field_directions and dy > 0:
+            if "up" in self.field_directions:
                 force_y -= self.magnetic_type * self.force
-            if "down" in self.field_directions and dy < 0:
+            if "down" in self.field_directions:
                 force_y += self.magnetic_type * self.force
 
-        player.rect.x += force_x
-        player.rect.y += force_y    
+            player.rect.x += force_x
+            player.rect.y += force_y    
 
         
         
