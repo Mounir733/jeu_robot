@@ -3,6 +3,7 @@ import sys
 from Classes.Player.playerMaxence import Player
 from Classes.InteractiveObject.oreVein import OreVein
 from Classes.InteractiveObject.magneticObject import MagneticObject
+from Classes.Obstacle.obstacle import Obstacle
 
 # Initialisation de Pygame
 pygame.init()
@@ -16,12 +17,15 @@ WHITE = (255, 255, 255)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Jeu de Plateforme")
 
-# Classe du joueur
+# Créez une instance d'obstacle (ajoutez-le à votre scène)
+obstacle = Obstacle(750, 674)
+obstacles_group = pygame.sprite.Group()
+obstacles_group.add(obstacle)
 
-
+        
 # Création des groupes de sprites
 all_sprites = pygame.sprite.Group()
-player = Player()
+player = Player(obstacles_group)
 all_sprites.add(player)
 
 # Chargement de l'image de fond
@@ -35,7 +39,7 @@ ore_veins = [oreVein]
 all_sprites.add(oreVein)
 
 objInteract2 = "assets/objets_interactibles/objetMagnetique.png"
-objMagn = MagneticObject(400, 500, objInteract2, -1, 400, 2, ["right", "bottom"] )
+objMagn = MagneticObject(200, 500, objInteract2, -1, 400, 1, ["right", "down"])
 all_sprites.add(objMagn)
 
 # Position du fond (initialisée à 0)

@@ -5,5 +5,7 @@ class Button(InteractiveObject):
         super().__init__(self, x, y, sprite_image)
         self.activate = False
 
-    def interact(self):
-        pass
+    def interact(self, player):
+        if self.rect.colliderect(player.rect):
+            self.activate = True
+        
