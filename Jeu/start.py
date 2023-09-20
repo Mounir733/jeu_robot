@@ -19,6 +19,8 @@ font = pygame.font.Font("Jeu/Font/androidnation.ttf", 25)  # Vous pouvez choisir
 
 # Créer une fonction pour afficher le menu
 def show_menu():
+    pygame.mixer.music.load('assets/music/menu.mp3')
+    pygame.mixer.music.play(-1)
     menu = True
     while menu:
         for event in pygame.event.get():
@@ -43,5 +45,6 @@ def show_menu():
         pygame.display.flip()
 
     # Boucle de jeu
+    pygame.mixer.music.stop()
     while True:
         main_game()  # Lancer le jeu principal
