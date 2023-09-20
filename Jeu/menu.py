@@ -1,6 +1,6 @@
 import pygame
 import sys
-from Classes.Player.playerA import Player
+from Classes.Player.playerA  import Player
 from Classes.Obstacle.obstacle import Obstacle
 
 # Initialisation de pygame
