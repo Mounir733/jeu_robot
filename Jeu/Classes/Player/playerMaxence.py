@@ -10,11 +10,14 @@ class Player(pygame.sprite.Sprite):
         self.images_left = []   # Liste pour stocker les images d'animation orientées vers la gauche
         self.images_jump = []   # Liste pour stocker les images d'animation de saut
         self.image_index = 0    # Indice de l'image actuelle
-        self.load_images()      # Chargez les images dans les listes
+        self.load_images()     # Chargez les images dans les listes
         self.image = self.images_right[self.image_index]  # Par défaut, utilisez les images orientées vers la droite
         self.rect = self.image.get_rect()
         # self.rect.width = 30  Largeur réduite à 30 pixels
         self.rect.center = (self._SCREEN_WIDTH // 2, self._SCREEN_HEIGHT // 2)
+        self.numberOre = 0
+
+
         self.velocity = pygame.Vector2(0, 0)
         self.gravity = 0.04
         self.jump_power = -3
@@ -33,14 +36,14 @@ class Player(pygame.sprite.Sprite):
 
     def load_images(self):
             idle_image = pygame.image.load("assets/robots/OrangeRobot/SeparetedImages/OrangeRobot1.png")
-            idle_image = pygame.transform.scale(idle_image, (150, 150))  # Redimensionnez à la taille souhaitée
+            idle_image = pygame.transform.scale(idle_image, (70, 70))  # Redimensionnez à la taille souhaitée
             self.images_right.append(idle_image)
             self.images_left.append(pygame.transform.flip(idle_image, True, False))
             
             # Chargez toutes les images d'animation et ajoutez-les à la liste
             for i in range(6, 12):  # Supposons que vous ayez 3 images numérotées
                 image = pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png")  # Remplacez par vos noms d'image
-                image = pygame.transform.scale(image, (150, 150))  # Redimensionnez à la taille souhaitée
+                image = pygame.transform.scale(image, (70, 70))  # Redimensionnez à la taille souhaitée
                 self.images_right.append(image)
                 # Inversez et ajoutez les images orientées vers la gauche
                 image_left = pygame.transform.flip(image, True, False)
@@ -49,7 +52,7 @@ class Player(pygame.sprite.Sprite):
                     # Chargez les images d'animation de saut (images 12 à 15)
             for i in range(12, 16):
                 image_jump = pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png")
-                image_jump = pygame.transform.scale(image_jump, (150, 150))  # Redimensionnez à la taille souhaitée
+                image_jump = pygame.transform.scale(image_jump, (70, 70))  # Redimensionnez à la taille souhaitée
                 self.images_jump.append(image_jump)
 
     def jump(self):
@@ -91,7 +94,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.top < 0:
             self.rect.top = 0
 
-        if self.rect.bottom > self._SCREEN_HEIGHT:
+        if self.rect.bottom > self._SCREEN_HEIGHT - 90:
             self.rect.bottom = self._SCREEN_HEIGHT
             self.on_ground = True  # Le joueur touche le sol
 
@@ -101,13 +104,13 @@ class Player(pygame.sprite.Sprite):
             self.rect.x = self.prev_x
             self.on_ground = True
 
-        if not collisions and self.rect.bottom < self._SCREEN_HEIGHT:
+        if not collisions and self.rect.bottom < self._SCREEN_HEIGHT - 90:
             self.on_ground = False
 
 
-        if self.rect.bottom > self._SCREEN_HEIGHT:
+        if self.rect.bottom > self._SCREEN_HEIGHT - 90:
             self.on_ground = True  # Le joueur touche le sol
-            self.rect.bottom = self._SCREEN_HEIGHT
+            self.rect.bottom = self._SCREEN_HEIGHT - 90
 
         now = pygame.time.get_ticks()
         if now - self.last_animation_time > self.animation_delay:

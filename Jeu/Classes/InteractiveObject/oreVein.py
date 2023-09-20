@@ -12,7 +12,7 @@ class OreVein(InteractiveObject):
         if self.collecting_timer > 0 and self.collectable:
             self.collecting_timer -= 1
         elif self.collecting_timer == 0:
-            print("Minerai récupéré!")
             self.collectable = False
             self.collecting_timer -= 1
+            player.numberOre += 1
         
