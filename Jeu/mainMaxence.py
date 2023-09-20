@@ -4,6 +4,7 @@ from Classes.Player.playerA import Player
 from Classes.InteractiveObject.oreVein import OreVein
 from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
+from Classes.ConsumableObjects.upsideDown import UpsideDown
 from Classes.camera import Camera
 
 # Initialisation de pygame
@@ -87,7 +88,9 @@ def main_game():
     all_sprites.add(magneticObject)
 
     #Création d'un consomable
-    
+    consomable = UpsideDown(600, 600, "assets/objets_interactibles/consomable.png")
+    camera.setObject(consomable)
+    all_sprites.add(consomable)
 
     # Chargement de l'image de fond
     fond = pygame.image.load("assets/backgrounds/niveau1.png")
@@ -131,6 +134,11 @@ def main_game():
                 all_sprites.remove(ore_vein)
 
         magneticObject.interact(player)
+
+        if not consomable.consumed:
+            is_consume = consomable.consume(player)
+            if is_consume:
+                all_sprites.remove(consomable)
 
         game_over(player)
 
