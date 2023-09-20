@@ -57,9 +57,11 @@ def main_game():
     # Créez une instance d'obstacle (ajoutez-le à votre scène)
     obstacle = Obstacle(750, 590, "assets/obstacles/big_box.png",100,100)
     obstacle2 = Obstacle(200, 490, "assets/obstacles/small_box.png",50,50)
+    obstacle3 = Obstacle(300, 380, "assets/obstacles/plateforme.png",150,50)
     obstacles_group = pygame.sprite.Group()
     obstacles_group.add(obstacle)
     obstacles_group.add(obstacle2)
+    obstacles_group.add(obstacle3)
 
         
     # Création des groupes de sprites
