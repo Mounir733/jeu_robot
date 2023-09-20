@@ -63,6 +63,16 @@ def main_game():
     obstacles_group.add(obstacle2)
     obstacles_group.add(obstacle3)
 
+        #Creer une filon de minerai
+    ore_vein = OreVein(750, 550, "assets/objets_interactibles/Red_crystal1.png", "crystal", 4)
+    camera.setObject(ore_vein)
+    all_sprites.add(ore_vein)
+
+    #Créer un objet magnétique
+    magneticObject = MagneticObject(700, 650, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
+    camera.setObject(magneticObject)
+    all_sprites.add(magneticObject)
+
         
     # Création des groupes de sprites
     all_sprites = pygame.sprite.Group()

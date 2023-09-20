@@ -1,6 +1,6 @@
 import pygame
 import sys
-from Classes.Player.playerMaxence import Player
+from Classes.Player.playerA import Player
 from Classes.InteractiveObject.oreVein import OreVein
 from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
