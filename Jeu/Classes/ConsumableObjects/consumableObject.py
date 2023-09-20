@@ -7,7 +7,7 @@ class Consumable(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.consumed = False
 
     def consume(self, player):
-        
         pass
