@@ -16,8 +16,7 @@ class Camera(pygame.sprite.Group):
                 object.rect.centerx -= 1
                 if object.rect.colliderect(player.rect):
                     player.rect.centerx -= 1
-                
-                    
+                  
             except AttributeError:
                 object.get_rect().centerx -= 1
         
