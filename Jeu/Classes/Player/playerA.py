@@ -10,11 +10,12 @@ class Player(pygame.sprite.Sprite):
         self.images_left = []   # Liste pour stocker les images d'animation orientées vers la gauche
         self.images_jump = []   # Liste pour stocker les images d'animation de saut
         self.image_index = 0    # Indice de l'image actuelle
-        self.load_images()      # Chargez les images dans les listes
+        self.load_images()     # Chargez les images dans les listes
         self.image = self.images_right[self.image_index]  # Par défaut, utilisez les images orientées vers la droite
         self.rect = self.image.get_rect()
         # self.rect.width = 30  Largeur réduite à 30 pixels
         self.rect.center = (self._SCREEN_WIDTH // 2, self._SCREEN_HEIGHT // 2)
+        self.numberOre = 0
 
 
         self.velocity = pygame.Vector2(0, 0)
@@ -33,6 +34,11 @@ class Player(pygame.sprite.Sprite):
         self.step_sound = pygame.mixer.Sound("assets\sound\concrete-footsteps-6752.mp3")
         self.jump_sound = pygame.mixer.Sound("assets\sound\mixkit-electric-pop-2365.wav")
 
+
+        # Attributs pour gérer l'animation d'attaque
+        self.image_index_attack = 0
+        self.attacking = False
+        self.attack_counter = 0  # Compteur pour la temporisation de l'animation
 
 
 
@@ -56,6 +62,22 @@ class Player(pygame.sprite.Sprite):
                 image_jump = pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png")
                 image_jump = pygame.transform.scale(image_jump, (70, 70))  # Redimensionnez à la taille souhaitée
                 self.images_jump.append(image_jump)
+
+            # Chargez les images pour l'animation d'attaque à droite
+            self.images_attack_right = [pygame.transform.scale(pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png"),(70,70)) for i in range(20, 28)]
+            # Chargez les images pour l'animation d'attaque à gauche (en inversant horizontalement)
+            self.images_attack_left = [pygame.transform.flip(img, True, False) for img in self.images_attack_right]
+        
+  
+    def attack(self):
+        # Cette méthode est appelée lorsque le joueur attaque
+        self.attacking = True
+        self.image_index_attack = 0
+        # Déterminez quelles images d'attaque utiliser en fonction de la direction
+        if self.direction == "right":
+            self.attack_images = self.images_attack_right
+        else:
+            self.attack_images = self.images_attack_left
 
     def jump(self):
         if self.on_ground:
@@ -84,6 +106,9 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_SPACE]:  # Gestion de la touche Espace pour le saut
             self.jump()
+        if keys[pygame.K_e]:
+            self.attack()  # Appel de la méthode d'attaque lorsque la touche "e" est pressée
+
 
         if not self.on_ground:
             self.velocity.y += self.gravity
@@ -120,37 +145,50 @@ class Player(pygame.sprite.Sprite):
             self.on_ground = True  # Le joueur touche le sol
             self.rect.bottom = self._SCREEN_HEIGHT - 90
 
-        now = pygame.time.get_ticks()
-        if now - self.last_animation_time > self.animation_delay:
-            self.last_animation_time = now
 
-            if self.on_ground == False:
-                # Animation de saut
-                self.image_index += 1
-                if self.image_index < len(self.images_jump):
-                    if self.direction == "right":
-                        self.image = self.images_jump[self.image_index]
+        if self.attacking:
+            self.attack_counter += 1  # Incrémente le compteur de temporisation
+            # Si le compteur a atteint un seuil, changez l'image
+            if self.attack_counter >= 10:  # Vous pouvez ajuster ce seuil pour contrôler la vitesse de l'animation
+                self.attack_counter = 0  # Réinitialisez le compteur
+                self.image_index_attack += 1
+                if self.image_index_attack >= len(self.attack_images) - 1:
+                    self.attacking = False  # Arrêtez l'animation une fois qu'elle est terminée
+            # Changer d'image pour l'animation d'attaque
+            self.image = self.attack_images[self.image_index_attack]
+        else:
+
+            now = pygame.time.get_ticks()
+            if now - self.last_animation_time > self.animation_delay:
+                self.last_animation_time = now
+
+                if self.on_ground == False:
+                    # Animation de saut
+                    self.image_index += 1
+                    if self.image_index < len(self.images_jump):
+                        if self.direction == "right":
+                            self.image = self.images_jump[self.image_index]
+                        else:
+                            self.image = pygame.transform.flip(self.images_jump[self.image_index], True, False)
                     else:
-                        self.image = pygame.transform.flip(self.images_jump[self.image_index], True, False)
-                else:
-                    self.image_index = len(self.images_jump) - 1
-            elif self.velocity.x != 0:
-                self.image_index += 1
-                if self.image_index >= len(self.images_right):
-                    self.image_index = 0
-                if self.direction == "right":
-                    self.image = self.images_right[self.image_index]
-                else:
-                    self.image = self.images_left[self.image_index]
+                        self.image_index = len(self.images_jump) - 1
+                elif self.velocity.x != 0:
+                    self.image_index += 1
+                    if self.image_index >= len(self.images_right):
+                        self.image_index = 0
+                    if self.direction == "right":
+                        self.image = self.images_right[self.image_index]
+                    else:
+                        self.image = self.images_left[self.image_index]
 
-            else:
-                self.image_index = 0
-                # Si le personnage ne se déplace pas, utilisez l'image actuelle
-                if self.direction == "right":
-                    self.image = self.images_right[self.image_index]
                 else:
-                    self.image = self.images_left[self.image_index]
-            
+                    self.image_index = 0
+                    # Si le personnage ne se déplace pas, utilisez l'image actuelle
+                    if self.direction == "right":
+                        self.image = self.images_right[self.image_index]
+                    else:
+                        self.image = self.images_left[self.image_index]
+                
 
             
             

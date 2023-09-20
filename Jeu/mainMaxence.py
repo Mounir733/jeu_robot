@@ -1,17 +1,18 @@
 import pygame
 import sys
-from Classes.Player.playerMaxence import Player
+from Classes.Player.playerA import Player
 from Classes.InteractiveObject.oreVein import OreVein
 from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
+from Classes.ConsumableObjects.upsideDown import UpsideDown
 from Classes.camera import Camera
 
 # Initialisation de pygame
 pygame.init()
 
 # Définir la taille de la fenêtre d'affichage
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 768
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Couleurs
@@ -77,9 +78,19 @@ def main_game():
     all_sprites.add(player)
 
     #Creer une filon de minerai
-    ore_vein = OreVein(1500, 700, "assets/objets_interactibles/Red_crystal1.png", "crystal", 4)
+    ore_vein = OreVein(750, 550, "assets/objets_interactibles/Red_crystal1.png", "crystal", 4)
     camera.setObject(ore_vein)
     all_sprites.add(ore_vein)
+
+    #Créer un objet magnétique
+    magneticObject = MagneticObject(700, 650, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
+    camera.setObject(magneticObject)
+    all_sprites.add(magneticObject)
+
+    #Création d'un consomable
+    consomable = UpsideDown(600, 600, "assets/objets_interactibles/consomable.png")
+    camera.setObject(consomable)
+    all_sprites.add(consomable)
 
     # Chargement de l'image de fond
     fond = pygame.image.load("assets/backgrounds/niveau1.png")
@@ -119,7 +130,17 @@ def main_game():
             if player.rect.colliderect(ore_vein.rect):
                 ore_vein.interact(player)
 
-        keys = pygame.key.get_pressed()
+            if ore_vein.collectable == False:
+                all_sprites.remove(ore_vein)
+
+        magneticObject.interact(player)
+
+        if not consomable.consumed:
+            is_consume = consomable.consume(player)
+            if is_consume:
+                all_sprites.remove(consomable)
+
+        game_over(player)
 
             # Mise à jour de la position du fond pour le faire défiler
         fond_x -= vitesse_fond
@@ -146,7 +167,8 @@ def main_game():
 
 
         screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
-
+        #dessine le compteur minerai
+        show_ore_screen(screen, pygame.font.Font(None, 36), pygame.image.load("assets/objets_interactibles/Red_crystal1.png"), player.numberOre  )
 
         # Dessinez l'obstacle
         obstacles_group.update()
@@ -161,8 +183,22 @@ def main_game():
 
     # Quitter Pygame
     pygame.quit()
-    sys.exit() 
+    sys.exit()
 
+def show_ore_screen(screen, font, ore_image, ore_collected):
+    # Dessinez l'image du minerai à une position spécifique
+    screen.blit(ore_image, (SCREEN_WIDTH - 120, 0))
+
+    # Créez une surface pour le texte du nombre de minerais
+    text_surface = font.render(f'x {ore_collected}', True, (255, 255, 255))
+
+    # Dessinez le texte à côté de l'image du minerai
+    screen.blit(text_surface, (SCREEN_WIDTH - 60, 10))
+
+def game_over(player):
+    if player.rect.left <=0:
+        print("MORT!")
+        return True
 # Boucle de jeu
 show_menu()  # Afficher le menu au démarrage
 while True:
