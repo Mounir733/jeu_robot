@@ -99,7 +99,7 @@ class Player(pygame.sprite.Sprite):
         collisions = pygame.sprite.spritecollide(self, self.obstacles_group, False)
         if collisions:
             self.rect.x = self.prev_x
-            self.on_ground = True 
+            self.on_ground = True
 
         if not collisions and self.rect.bottom < self._SCREEN_HEIGHT:
             self.on_ground = False
@@ -140,14 +140,16 @@ class Player(pygame.sprite.Sprite):
                 else:
                     self.image = self.images_left[self.image_index]
             
-    #####Maxence#######
 
-    def has_magnet():
-        return True
-    
-    def collect_ore(self, ore_vein):
-        if ore_vein.collecting_timer > 0:
-            self.collecting_timer -= 1
-            return True
-        else:
-            return False
+            
+            
+
+
+
+
+
+
+
+
+
+            

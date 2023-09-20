@@ -99,7 +99,7 @@ class Player(pygame.sprite.Sprite):
         collisions = pygame.sprite.spritecollide(self, self.obstacles_group, False)
         if collisions:
             self.rect.x = self.prev_x
-            self.on_ground = True 
+            self.on_ground = True
 
         if not collisions and self.rect.bottom < self._SCREEN_HEIGHT:
             self.on_ground = False
@@ -141,6 +141,8 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.images_left[self.image_index]
             
 
+            
+            
 
 
 
