@@ -1,6 +1,6 @@
 import pygame
 import sys
-from Classes.Player.playerMaxence import Player
+from Classes.Player.playerA import Player
 from Classes.InteractiveObject.oreVein import OreVein
 from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
@@ -10,7 +10,6 @@ from Classes.camera import Camera
 # Initialisation de pygame
 pygame.init()
 
-# Définir la taille de la fenêtre d'affichage
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
