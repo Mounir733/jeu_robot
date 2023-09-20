@@ -15,7 +15,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Police de caractères pour le menu
-font = pygame.font.Font(None, 36)
+font = pygame.font.Font("Jeu/Font/androidnation.ttf", 25)  # Vous pouvez choisir une police personnalisée
 
 # Créer une fonction pour afficher le menu
 def show_menu():
@@ -33,16 +33,15 @@ def show_menu():
         screen.blit(fond, (0, 0))
 
         # Afficher le titre du jeu
-        title_text = font.render("KingOfMagnet", True, WHITE)
-        screen.blit(title_text, (300, 200))
+        title_text = font.render("Simple Magnet", True, WHITE)
+        screen.blit(title_text, (30, 30))
 
         # Afficher les instructions
         instructions_text = font.render("Appuyez sur Espace pour commencer", True, WHITE)
-        screen.blit(instructions_text, (250, 300))
+        screen.blit(instructions_text, (125, SCREEN_HEIGHT - 100))
 
         pygame.display.flip()
 
-# Boucle de jeu
-show_menu()  # Afficher le menu au démarrage
-while True:
-    main_game()  # Lancer le jeu principal
+    # Boucle de jeu
+    while True:
+        main_game()  # Lancer le jeu principal

@@ -31,6 +31,9 @@ class Player(pygame.sprite.Sprite):
         self.prev_y = self.rect.y
         self.obstacles_group = obstacles_group  # Passer le groupe d'obstacles à la classe Player
         self.on_platforme = False
+        self.step_sound = pygame.mixer.Sound("assets\sound\concrete-footsteps-6752.mp3")
+        self.jump_sound = pygame.mixer.Sound("assets\sound\mixkit-player-jumping-in-a-video-game-2043.wav")
+
 
         # Attributs pour gérer l'animation d'attaque
         self.image_index_attack = 0
@@ -78,6 +81,7 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         if self.on_ground:
+            pygame.mixer.Sound.play(self.jump_sound)
             self.velocity.y = self.jump_power
             self.on_ground = False  # Définir le joueur comme étant en l'air
 
@@ -87,12 +91,17 @@ class Player(pygame.sprite.Sprite):
         self.prev_y = self.rect.y
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
+            if not pygame.mixer.get_busy():
+                pygame.mixer.Sound.play(self.step_sound)
             self.velocity.x = -self.speed
             self.direction = "left"  # Définissez la direction vers la gauche
         elif keys[pygame.K_RIGHT]:
+            if not pygame.mixer.get_busy():
+                pygame.mixer.Sound.play(self.step_sound)
             self.velocity.x = self.speed
             self.direction = "right"  # Définissez la direction vers la droite
         else:
+            self.step_sound.stop()
             self.velocity.x = 0
 
         if keys[pygame.K_SPACE]:  # Gestion de la touche Espace pour le saut

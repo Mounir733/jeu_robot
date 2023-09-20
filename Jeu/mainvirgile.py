@@ -6,6 +6,7 @@ from pygame.sprite import AbstractGroup
 from Classes.Player.player import Player
 from Classes.Plateforme.plateforme import Plateforme
 from pygame.locals import *
+from pygame import mixer
 
 
 
@@ -15,6 +16,9 @@ pygame.init()
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 WHITE = (255, 255, 255)
+
+# Initialisation de mixer
+mixer.init()
 
 # Création de la fenêtre du jeu
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -52,6 +56,11 @@ while starting:
 
 # Classe du joueur
 
+pygame.mixer.music.load('assets/music/a-calm-soulful-atmosphere-for-a-documentary-film-166464.mp3')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.stop()
+pygame.mixer.music.load('assets\music\menu_space-atmospheric-background-124841.mp3')
+pygame.mixer.music.play(-1)
 
 # Création des groupes de sprites
 all_sprites = pygame.sprite.Group()
