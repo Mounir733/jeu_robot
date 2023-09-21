@@ -191,6 +191,8 @@ def game_over(player):
         print("MORT!")
         player.is_dead = True
         if(player.is_dead == True):
+            player.step_sound.stop()
+            pygame.mixer.Sound.play(player.death_sound)
             pygame.time.wait(1000)
             death_menu()
         return True
