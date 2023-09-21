@@ -2,6 +2,8 @@
 import pygame
 import sys
 from niveau1 import main_game
+from niveau2 import main_game_2
+
 from creditScene import CreditsScene, CreditsButton
 
 # Initialisation de pygame
@@ -18,15 +20,20 @@ BLACK = (0, 0, 0)
 # Police de caractères pour le menu
 font = pygame.font.Font("Jeu/Font/androidnation.ttf", 25)  # Vous pouvez choisir une police personnalisée
 
+
 # Créer une fonction pour afficher le menu
-def show_menu():
+def show_menu(unlock_niveau2):
     pygame.mixer.music.load('assets/music/menu.mp3')
     pygame.mixer.music.set_volume(1.0)
     pygame.mixer.music.play(-1)
     credits_button = CreditsButton(800, 100, "Credits", font, (255, 255, 255))
     credits_scene = CreditsScene(SCREEN_HEIGHT, SCREEN_HEIGHT,)
     show_credits = False
+    selected_earth = True
     menu = True
+    earth = pygame.image.load("assets/planets/Terran_Selected.png")
+    moon = pygame.image.load("assets/planets/Baren_Selected.png")
+
     while menu:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -37,16 +44,36 @@ def show_menu():
                     menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée
             if credits_button.is_clicked(event):
                 show_credits = True
-        
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée
+            if credits_button.is_clicked(event):
+                show_credits = True
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    selected_earth = False  # Lancer le jeu principal lorsque la touche Espace est pressée
+                if event.key == pygame.K_LEFT:
+                    selected_earth = True  # Lancer le jeu principal lorsque la touche Espace est pressée
+                               
         fond = pygame.image.load("assets/backgrounds/space.jpg")
         
-        
-        earth = pygame.image.load("assets/planets/Terran_Selected.png")
-        earth = pygame.transform.scale(earth, (200, 200))  # Redimensionnez à la taille souhaitée
 
-        moon = pygame.image.load("assets/planets/Baren_Blocked.png")
+
+
+        if(unlock_niveau2 == False):
+            earth = pygame.image.load("assets/planets/Terran_Selected.png")
+            moon = pygame.image.load("assets/planets/Baren_Blocked.png")
+        else:
+            if(selected_earth == True):
+                earth = pygame.image.load("assets/planets/Terran_Selected.png")
+                moon = pygame.image.load("assets/planets/Baren.png")
+            else:
+                moon = pygame.image.load("assets/planets/Baren_Selected.png")
+                earth = pygame.image.load("assets/planets/Terran.png")
+         
         moon = pygame.transform.scale(moon, (200, 200))  # Redimensionnez à la taille souhaitée
+        earth = pygame.transform.scale(earth, (200, 200))  # Redimensionnez à la taille souhaitée
 
         screen.blit(fond, (0, 0))
         screen.blit(earth, (200, 300))
@@ -90,4 +117,8 @@ def show_menu():
     # Boucle de jeu
     pygame.mixer.music.stop()
     while True:
-        main_game()  # Lancer le jeu principal
+        if(selected_earth == True):
+            main_game()  # Lancer le jeu principal
+        else:
+            main_game_2()  # Lancer le jeu principal
+

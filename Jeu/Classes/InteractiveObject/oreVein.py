@@ -16,4 +16,11 @@ class OreVein(InteractiveObject):
             self.collectable = False
             self.collecting_hit -= 1
             player.numberOre += 1
+    def link(self,player,all_sprites,keys):
+        if keys[pygame.K_e]:
+            if player.rect.colliderect(self.rect):
+                self.interact(player)
+
+            if self.collectable == False:
+                all_sprites.remove(self)
         
