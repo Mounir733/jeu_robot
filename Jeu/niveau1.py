@@ -122,10 +122,9 @@ def main_game():
 
         magneticObject.interact(player)
 
-        if not consomable.consumed:
-            is_consume = consomable.consume(player)
-            if is_consume:
-                all_sprites.remove(consomable)
+        is_consume = consomable.consume(player)
+        if is_consume:
+            all_sprites.remove(consomable)
 
         game_over(player)
 

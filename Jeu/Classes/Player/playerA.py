@@ -31,10 +31,10 @@ class Player(pygame.sprite.Sprite):
         self.prev_y = self.rect.y
         self.obstacles_group = obstacles_group  # Passer le groupe d'obstacles à la classe Player
         self.on_platforme = False
+
         self.step_sound = pygame.mixer.Sound("assets/sound/footsteps1.mp3")
         self.jump_sound = pygame.mixer.Sound("assets/sound/jump1.wav")
         self.jump_sound.set_volume(0.5)
-
 
 
         # Attributs pour gérer l'animation d'attaque
