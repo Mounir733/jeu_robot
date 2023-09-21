@@ -36,7 +36,7 @@ def main_game():
 
     # Démarrage de la musique
     pygame.mixer.music.stop()
-    pygame.mixer.music.load('assets/music/lvl2.mp3')
+    pygame.mixer.music.load('assets/music/lvl1.mp3')
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
 
