@@ -6,6 +6,7 @@ from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
 from Classes.ConsumableObjects.upsideDown import UpsideDown
 from Classes.camera import Camera
+from Classes.keyboarSettings import KeyboardSettings
 
 # Initialisation de pygame
 pygame.init()
@@ -47,7 +48,7 @@ def main_game():
     all_sprites.add(player)
 
     #Creer une filon de minerai
-    ore_vein = OreVein(1750, 550, "assets/objets_interactibles/Red_crystal1.png", "crystal", 4)
+    ore_vein = OreVein(1750, 550, "assets/objets_interactibles/Red_crystal1.png", "crystal", 6)
     camera.setObject(ore_vein)
     all_sprites.add(ore_vein)
 
@@ -110,7 +111,7 @@ def main_game():
 
         game_over(player)
 
-            # Mise à jour de la position du fond pour le faire défiler
+        # Mise à jour de la position du fond pour le faire défiler
         fond_x -= vitesse_fond
 
         # Si le fond atteint la fin de l'image, réinitialisez-le à 0

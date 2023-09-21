@@ -6,6 +6,7 @@ from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
 from Classes.ConsumableObjects.upsideDown import UpsideDown
 from Classes.camera import Camera
+from Classes.keyboarSettings import KeyboardSettings
 
 # Initialisation de pygame
 pygame.init()
@@ -199,6 +200,7 @@ def game_over(player):
         return False
     else:
         return True
+k = KeyboardSettings(SCREEN_WIDTH, SCREEN_HEIGHT)
 # Boucle de jeu
 show_menu()  # Afficher le menu au démarrage
 while True:
