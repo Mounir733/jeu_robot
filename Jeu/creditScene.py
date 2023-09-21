@@ -53,3 +53,7 @@ class CreditsButton:
             if event.button == 1:  # Clic gauche de la souris
                 return self.rect.collidepoint(event.pos)
         return False
+
+    def exit(self, event):
+        if event.type == pygame.K_RETURN:
+            return True

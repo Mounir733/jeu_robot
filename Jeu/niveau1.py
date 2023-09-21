@@ -273,7 +273,7 @@ def game_over(player):
             pygame.mixer.stop()
             pygame.mixer.Sound.play(player.death_sound)
             pygame.time.wait(1000)
-            death_menu()
+            death_menu(False)
         return True
 # Boucle de jeu
 

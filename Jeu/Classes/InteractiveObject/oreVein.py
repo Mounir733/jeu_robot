@@ -11,7 +11,6 @@ class OreVein(InteractiveObject):
     def interact(self, player):
         if self.collecting_hit > 0 and self.collectable and player.attack_counter == 1:
             self.collecting_hit -= 1
-            print("oui")
         elif self.collecting_hit == 0:
             self.collectable = False
             self.collecting_hit -= 1
