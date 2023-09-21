@@ -21,6 +21,7 @@ font = pygame.font.Font("Jeu/Font/androidnation.ttf", 25)  # Vous pouvez choisir
 # Créer une fonction pour afficher le menu
 def show_menu():
     pygame.mixer.music.load('assets/music/menu.mp3')
+    pygame.mixer.music.set_volume(1.0)
     pygame.mixer.music.play(-1)
     credits_button = CreditsButton(800, 100, "Credits", font, (255, 255, 255))
     credits_scene = CreditsScene(SCREEN_HEIGHT, SCREEN_HEIGHT,)
