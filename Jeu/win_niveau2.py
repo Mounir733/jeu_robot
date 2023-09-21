@@ -17,6 +17,7 @@ font2 = pygame.font.Font("Jeu/Font/androidnation.ttf", 30)  # Vous pouvez choisi
 
 def win_menu_2():
     unlock_niveau2 = True
+    pygame.mixer.stop()
     pygame.mixer.music.stop()
     pygame.mixer.music.load('assets/music/gameover.mp3')
     pygame.mixer.music.set_volume(0.75)
