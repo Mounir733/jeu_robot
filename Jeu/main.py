@@ -1,43 +1,41 @@
-from typing import Iterable, Union
 import pygame
 import sys
-from pygame.sprite import AbstractGroup
-from Classes.Player.player import Player
+import time
+from start import show_menu
 
 # Initialisation de Pygame
 pygame.init()
 
-# Constantes
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 768
-WHITE = (255, 255, 255)
-
-# Création de la fenêtre du jeu
+# Paramètres de la fenêtre
+SCREEN_WIDTH, SCREEN_HEIGHT = 1024, 768
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Jeu de Plateforme")
-    
+pygame.display.set_caption("Simple Magnet")
 
-# Classe du joueur
+# Couleurs
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
-    
-# Création des groupes de sprites
-all_sprites = pygame.sprite.Group()
-player = Player()
-all_sprites.add(player)
+# Police stylée pour le nom du jeu
+font = pygame.font.Font("Jeu/Font/androidnation.ttf", 72)  # Vous pouvez choisir une police personnalisée
+font2 = pygame.font.Font("Jeu/Font/androidnation.ttf", 30)  # Vous pouvez choisir une police personnalisée
 
-# Chargement de l'image de fond
-fond = pygame.image.load("assets/backgrounds/niveau1.png")
-background_surface = pygame.Surface((fond.get_width(), fond.get_height()))
-background_surface.blit(fond, (0, 0))
-background_x = 0
-background_y = 0
+# Texte à afficher
+game_name = "Simple Magnet"
+team_name = "SimpleTeam presente"
 
-# Position du fond (initialisée à 0)
-fond_x = 0
+# Création des surfaces de texte
+game_name_surface = font.render(game_name, True, WHITE)
+team_name_surface = font2.render(team_name, True, WHITE)
 
-# Vitesse de défilement du fond
-vitesse_fond = 2
+# Positionnement du texte au centre de l'écran
+game_name_rect = game_name_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+team_name_rect = team_name_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
 
+# Temps de la transition (en secondes)
+transition_duration = 5  # Par exemple, 5 secondes
+
+# Horodatage du début de la transition
+transition_start_time = time.time()
 
 # Boucle de jeu
 running = True
@@ -45,46 +43,35 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
 
+    # Calculer le niveau de transparence en fonction du temps écoulé
+    elapsed_time = time.time() - transition_start_time
+    alpha = min(255, int((elapsed_time / transition_duration) * 255))
 
-    # Mise à jour des sprites
-    all_sprites.update()
-    collide_list = pygame.sprite.spritecollide(player, all_sprites, False)
-    if collide_list:
-    # Player is on a platform, handle jumping and gravity accordingly
-        player.is_jumping = False
-        player.rect.y = collide_list[0].rect.top # Place player on top of the platform
-        player.on_ground
-    # Player is in the air, apply gravity or allow jumping
+    # Effacement de l'écran
+    screen.fill((0, 0, 0))
 
-    keys = pygame.key.get_pressed()
+    # Affichage du texte
+    screen.blit(game_name_surface, game_name_rect)
+    screen.blit(team_name_surface, team_name_rect)
 
-        # Mise à jour de la position du fond pour le faire défiler
-    fond_x -= vitesse_fond
+    # Surface semi-transparente pour l'effet de fondu
+    fade_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+    fade_surface.fill((0, 0, 0, alpha))  # Couleur noire avec niveau de transparence
 
-    # Si le fond atteint la fin de l'image, réinitialisez-le à 0
-    fond_x = 0
+    # Superposition de la surface semi-transparente
+    screen.blit(fade_surface, (0, 0))
 
-    screen.blit(fond, (fond_x, 0))
-    screen.blit(fond, (fond_x + SCREEN_HEIGHT, 0))  # Deuxième copie pour le défilement continu
-
-    
-
-
-
-
-
-    # Affichage
-    screen.fill(WHITE)
-    screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
-    all_sprites.draw(screen)
-    all_sprites.draw(fond)
-
-
+    # Mise à jour de l'écran
     pygame.display.flip()
-    pygame.display.update()
+
+    # Vérifier si le temps de transition est écoulé
+    if elapsed_time >= transition_duration:
+        show_menu(False)  # Sortir de la boucle après la transition
 
 # Quitter Pygame
 pygame.quit()
-sys.exit() 
+sys.exit()
+
+
+# Après la cinématique, vous pouvez exécuter le script "start.py" ici
