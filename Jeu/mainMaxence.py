@@ -82,7 +82,7 @@ def main_game():
     all_sprites.add(ore_vein)
 
     #Créer un objet magnétique
-    magneticObject = MagneticObject(700, 650, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
+    magneticObject = MagneticObject(700, 650, "assets/objets_interactibles/objetMagnetique.png", 1, 800, 3, ["up"])
     camera.setObject(magneticObject)
     all_sprites.add(magneticObject)
 
@@ -138,7 +138,7 @@ def main_game():
         if is_consume:
             all_sprites.remove(consomable)
 
-        game_over(player)
+        running = game_over(player)
 
             # Mise à jour de la position du fond pour le faire défiler
         fond_x -= vitesse_fond
@@ -196,7 +196,8 @@ def show_ore_screen(screen, font, ore_image, ore_collected):
 
 def game_over(player):
     if player.rect.left <=0:
-        print("MORT!")
+        return False
+    else:
         return True
 # Boucle de jeu
 show_menu()  # Afficher le menu au démarrage
