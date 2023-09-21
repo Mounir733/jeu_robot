@@ -29,8 +29,14 @@ def main_game():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Niveau 1")
 
-    #cration de la camera
+    #Création de la camera
     camera = Camera()
+
+    # Démarrage de la musique
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('assets/music/lvl2.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(-1)
 
     # Créez une instance d'obstacle (ajoutez-le à votre scène)
     obstacle = Obstacle(1920, 590, "assets/obstacles/big_box.png",100,100)
@@ -191,7 +197,7 @@ def game_over(player):
         print("MORT!")
         player.is_dead = True
         if(player.is_dead == True):
-            player.step_sound.stop()
+            pygame.mixer.stop()
             pygame.mixer.Sound.play(player.death_sound)
             pygame.time.wait(1000)
             death_menu()
