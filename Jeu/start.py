@@ -2,6 +2,7 @@
 import pygame
 import sys
 from niveau1 import main_game
+from creditScene import CreditsScene, CreditsButton
 
 # Initialisation de pygame
 pygame.init()
@@ -22,6 +23,9 @@ def show_menu():
     pygame.mixer.music.load('assets/music/menu.mp3')
     pygame.mixer.music.set_volume(1.0)
     pygame.mixer.music.play(-1)
+    credits_button = CreditsButton(800, 100, "Credits", font, (255, 255, 255))
+    credits_scene = CreditsScene(SCREEN_HEIGHT, SCREEN_HEIGHT,)
+    show_credits = False
     menu = True
     while menu:
         for event in pygame.event.get():
@@ -31,6 +35,10 @@ def show_menu():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée
+            if credits_button.is_clicked(event):
+                show_credits = True
+        
+
         fond = pygame.image.load("assets/backgrounds/space.jpg")
         
         
@@ -69,6 +77,12 @@ def show_menu():
         # Afficher les instructions
         instructions_text = font.render("Appuyez sur Espace pour commencer", True, WHITE)
         screen.blit(instructions_text, (125, SCREEN_HEIGHT - 100))
+
+        # Afficher les crédits
+        if show_credits:
+            credits_scene.display_credits(screen, font)
+        else:
+            credits_button.draw(screen)
 
 
         pygame.display.flip()
