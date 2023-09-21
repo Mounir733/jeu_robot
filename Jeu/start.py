@@ -44,6 +44,8 @@ def show_menu(unlock_niveau2):
                     menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée
             if credits_button.is_clicked(event):
                 show_credits = True
+            if credits_button.exit(event):
+                show_credits = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée

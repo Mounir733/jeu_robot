@@ -55,5 +55,5 @@ class CreditsButton:
         return False
 
     def exit(self, event):
-        if event.type == pygame.K_RETURN:
+        if  event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
             return True
