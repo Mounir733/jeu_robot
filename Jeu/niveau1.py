@@ -239,6 +239,9 @@ def main_game():
         if(player.numberOre == 5):
             win_menu()
 
+        if(ore_vein5.rect.x == 0 and player.numberOre != 5):
+            death_menu(False)
+
         pygame.display.flip()
         pygame.display.update()
 

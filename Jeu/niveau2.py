@@ -7,8 +7,7 @@ from Classes.Obstacle.obstacle import Obstacle
 from Classes.ConsumableObjects.upsideDown import UpsideDown
 from Classes.camera import Camera
 from death import death_menu
-from win_niveau1 import win_menu
-from Classes.keyboard import Keyboard
+from win_niveau2 import win_menu_2
 
 # Initialisation de pygame
 pygame.init()
@@ -21,6 +20,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 font = pygame.font.Font(None, 36)
 
+niveau2 = True
 
 # Fonction principale du jeu
 def main_game_2():
@@ -35,126 +35,196 @@ def main_game_2():
     camera = Camera()
 
     # Créez une instance d'obstacle (ajoutez-le à votre scène)
-    obstacle = Obstacle(3000, 590, "assets/obstacles/big_box.png",100,100)
+    obstacle = Obstacle(2000, 590, "assets/obstacles/big_box.png",100,100)
     obstacles_group = pygame.sprite.Group()
     obstacles_group.add(obstacle)
     camera.setObject(obstacle)
 
-    keyboard = Keyboard(SCREEN_WIDTH, SCREEN_HEIGHT, "assets/keyboard_keys/arrows.png", 1000)
-    escape = Keyboard(SCREEN_WIDTH, SCREEN_HEIGHT, "assets/keyboard_keys/escape.png",3000)
-    attack = Keyboard(SCREEN_WIDTH, SCREEN_HEIGHT, "assets/keyboard_keys/key_e.png",4500)
-    camera.setObject(keyboard)
-    camera.setObject(escape)
-    camera.setObject(attack)
+    obstacle2 = Obstacle(2000, 490, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle2)
+    camera.setObject(obstacle2)
+
+
+
+    obstacle4 = Obstacle(2000, 190, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle4)
+    camera.setObject(obstacle4)
+
+
+    obstacle5 = Obstacle(2000, 90, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle5)
+    camera.setObject(obstacle5)
+
+    obstacle6 = Obstacle(2000, -10, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle6)
+    camera.setObject(obstacle6)
+
+
+    #Créer un objet magnétique
+    magneticObject2 = MagneticObject(2200, 50, "assets/objets_interactibles/objetMagnetique_2.png", 1, 400, 2, ["down"])
+    camera.setObject(magneticObject2)
+    all_sprites.add(magneticObject2)
+
+
+
+
+       # #Creer une filon de minerai
+    ore_vein = OreVein(2400, 600, "assets/objets_interactibles/Minerai_Lune.png", "crystal", 6)
+    camera.setObject(ore_vein)
+    all_sprites.add(ore_vein)
+
+    #Créer un objet magnétique
+    magneticObject3 = MagneticObject(2900, 600, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
+    camera.setObject(magneticObject3)
+    all_sprites.add(magneticObject3)
+
+    obstacle7 = Obstacle(3000, 590, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle7)
+    camera.setObject(obstacle7)
+
+    obstacle8 = Obstacle(3000, 490, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle8)
+    camera.setObject(obstacle8)
+
+
+
+    obstacle9= Obstacle(3000, 390, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle9)
+    camera.setObject(obstacle9)
+
+
+    obstacle10 = Obstacle(3000, 290, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle10)
+    camera.setObject(obstacle10)
+
+        # #Creer une filon de minerai
+    ore_vein2 = OreVein(3030, 95, "assets/objets_interactibles/Minerai_Lune.png", "crystal", 6)
+    camera.setObject(ore_vein2)
+    all_sprites.add(ore_vein2)
+
+    obstacle11 = Obstacle(3000, -10, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle11)
+    camera.setObject(obstacle11)
 
 
     plateform = Obstacle(3200, 530, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform)
     camera.setObject(plateform)
 
-    obstacle = Obstacle(7000, 590, "assets/obstacles/big_box.png",100,100)
-    obstacles_group.add(obstacle)
-    camera.setObject(obstacle)
-    obstacle = Obstacle(7000, 490, "assets/obstacles/big_box.png",100,100)
-    obstacles_group.add(obstacle)
-    camera.setObject(obstacle)
-    obstacle = Obstacle(7000, 390, "assets/obstacles/big_box.png",100,100)
-    obstacles_group.add(obstacle)
-    camera.setObject(obstacle)
-
-    # #Creer une filon de minerai
-    ore_vein = OreVein(4500, 600, "assets/objets_interactibles/Red_crystal1.png", "crystal", 6)
-    camera.setObject(ore_vein)
-    all_sprites.add(ore_vein)
-
-    ore_vein2 = OreVein(5500, 600, "assets/objets_interactibles/Red_crystal1.png", "crystal", 6)
-    camera.setObject(ore_vein2)
-    all_sprites.add(ore_vein2)
-
-    #Créer un objet magnétique
-    magneticObject = MagneticObject(6930, 630, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
-    camera.setObject(magneticObject)
-    all_sprites.add(magneticObject)
-
-    # plateforme
-    plateform2 = Obstacle(8000, 570, "assets/obstacles/plateforme.png",300,50)
+    plateform2 = Obstacle(3550, 200, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform2)
     camera.setObject(plateform2)
-    # consumable
-    consomable = UpsideDown(8120, 530, "assets/objets_interactibles/consomable.png")
-    camera.setObject(consomable)
-    all_sprites.add(consomable)
 
-    # plateforme
-
-    plateform3 = Obstacle(8800, 200, "assets/obstacles/plateforme.png",200,50)
+    plateform3 = Obstacle(3800, 400, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform3)
     camera.setObject(plateform3)
 
-    ore_vein3 = OreVein(8870, 150, "assets/objets_interactibles/Red_crystal1.png", "crystal", 6)
-    camera.setObject(ore_vein3)
-    all_sprites.add(ore_vein3)
+ 
 
-        # plateforme
 
-    plateform4 = Obstacle(9200, 400, "assets/obstacles/plateforme.png",300,50)
+
+        #Créer un objet magnétique
+    magneticObject6 = MagneticObject(4700, 300, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
+    camera.setObject(magneticObject6)
+    all_sprites.add(magneticObject6)
+
+    plateform4 = Obstacle(4900, 100, "assets/obstacles/plateforme.png",300,50)
     obstacles_group.add(plateform4)
     camera.setObject(plateform4)
 
-    plateform5 = Obstacle(9700, 450, "assets/obstacles/plateforme.png",300,50)
-    obstacles_group.add(plateform5)
-    camera.setObject(plateform5)
+            # #Creer une filon de minerai
+    ore_vein3 = OreVein(5000, 20, "assets/objets_interactibles/Minerai_Lune.png", "crystal", 6)
+    camera.setObject(ore_vein3)
+    all_sprites.add(ore_vein3)
 
-    ore_vein4 = OreVein(9770, 400, "assets/objets_interactibles/Red_crystal1.png", "crystal", 6)
+        
+    obstacle12 = Obstacle(6000, 590, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle12)
+    camera.setObject(obstacle12)
+
+    obstacle13 = Obstacle(6000, 490, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle13)
+    camera.setObject(obstacle13)
+
+
+
+    obstacle14= Obstacle(6000, 390, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle14)
+    camera.setObject(obstacle14)
+
+
+    obstacle15 = Obstacle(6000, 290, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle15)
+    camera.setObject(obstacle15)
+
+    obstacle16 = Obstacle(6000, 190, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle16)
+    camera.setObject(obstacle16)
+
+    obstacle17 = Obstacle(6000, 90, "assets/obstacles/big_box.png",100,100)
+    obstacles_group.add(obstacle17)
+    camera.setObject(obstacle17)
+
+
+    plateform4 = Obstacle(6400, 400, "assets/obstacles/plateforme.png",200,50)
+    obstacles_group.add(plateform4)
+    camera.setObject(plateform4)
+
+    ore_vein4 = OreVein(6450, 350, "assets/objets_interactibles/Minerai_Lune.png", "crystal", 6)
     camera.setObject(ore_vein4)
     all_sprites.add(ore_vein4)
 
-    # Créez une instance d'obstacle (ajoutez-le à votre scène)
-    obstacle2 = Obstacle(10500, 590, "assets/obstacles/big_box.png",100,100)
-    obstacles_group.add(obstacle2)
-    camera.setObject(obstacle2)
 
-    ore_vein5 = OreVein(10525, 510, "assets/objets_interactibles/Red_crystal1.png", "crystal", 6)
+    #Créer un objet magnétique
+    magneticObject4 = MagneticObject(6700, 50, "assets/objets_interactibles/objetMagnetique_2.png", 1, 400, 2, ["down"])
+    camera.setObject(magneticObject4)
+    all_sprites.add(magneticObject4)
+
+    #Créer un objet magnétique
+    magneticObject5 = MagneticObject(6700, 600, "assets/objets_interactibles/objetMagnetique.png", 1, 400, 2, ["up"])
+    camera.setObject(magneticObject5)
+    all_sprites.add(magneticObject5)
+
+
+    plateform6 = Obstacle(6900, 500, "assets/obstacles/plateforme.png",400,50)
+    obstacles_group.add(plateform6)
+    camera.setObject(plateform6)
+
+    consomable3 = UpsideDown(7100, 480, "assets/objets_interactibles/consomable.png")
+    camera.setObject(consomable3)
+    all_sprites.add(consomable3)
+
+    plateform7 = Obstacle(7900, 100, "assets/obstacles/plateforme.png",100,50)
+    obstacles_group.add(plateform7)
+    camera.setObject(plateform7)
+
+    ore_vein5 = OreVein(7910, 20, "assets/objets_interactibles/Minerai_Lune.png", "crystal", 6)
     camera.setObject(ore_vein5)
     all_sprites.add(ore_vein5)
 
-    # plateform5 = Obstacle(2200, 500, "assets/obstacles/plateforme.png",200,50)
-    # obstacles_group.add(plateform5)
-    # camera.setObject(plateform5)
 
-    # plateform6 = Obstacle(2600, 420, "assets/obstacles/plateforme.png",200,50)
-    # obstacles_group.add(plateform6)
-    # camera.setObject(plateform6)
-    
-    # plateform7 = Obstacle(2900, 490, "assets/obstacles/plateforme.png",200,50)
-    # obstacles_group.add(plateform7)
-    # camera.setObject(plateform7)
-
-        
     # Création des groupes de sprites
     player = Player(obstacles_group)
     all_sprites.add(player)
-    all_sprites.add(keyboard)
-    all_sprites.add(escape)
-    all_sprites.add(attack)
 
 
 
 
 
-    # #Création d'un consomable
-    # consomable = UpsideDown(1600, 600, "assets/objets_interactibles/consomable.png")
-    # camera.setObject(consomable)
-    # all_sprites.add(consomable)
+
 
     # Chargement de l'image de fond
-    fond = pygame.image.load("assets/backgrounds/niveau1.png")
+    fond = pygame.image.load("assets/backgrounds/niveau2.png")
+    earth = pygame.image.load("assets/planets/Terran.png")
+    earth = pygame.transform.scale(earth, (earth.get_width()*4, earth.get_height()*4 ))
     sol = pygame.image.load("assets/backgrounds/sol.png")
     new_width = int((SCREEN_HEIGHT / fond.get_height()) * fond.get_width())
     fond = pygame.transform.scale(fond, (new_width, SCREEN_HEIGHT))
     sol = pygame.transform.scale(sol, (new_width, SCREEN_HEIGHT))
     background_surface = pygame.Surface((fond.get_width(), fond.get_height()))
+
     background_surface.blit(fond, (0, 0))
+    background_surface.blit(earth, ((SCREEN_WIDTH/2) - earth.get_width(),(SCREEN_HEIGHT/2) - earth.get_height()))
     background_surface.blit(sol, (0, 0))
     background_x = 0
     background_y = 0
@@ -170,7 +240,7 @@ def main_game_2():
     # Vitesse de défilement du fond
     vitesse_fond = 2
 
-
+    player.jump_power = -6
 
     # Boucle de jeu
     running = True
@@ -190,11 +260,18 @@ def main_game_2():
         ore_vein4.link(player,all_sprites,keys)
         ore_vein5.link(player,all_sprites,keys)
 
-        magneticObject.interact(player)
+        # magneticObject.interact(player)
+        magneticObject2.interact(player)
+        magneticObject3.interact(player)
+        magneticObject4.interact(player)
+        magneticObject5.interact(player)
+        magneticObject6.interact(player)
 
-        is_consume = consomable.consume(player)
-        if is_consume:
-            all_sprites.remove(consomable)
+
+
+        is_consume2 = consomable3.consume(player)
+        if is_consume2:
+            all_sprites.remove(consomable3)
 
         game_over(player)
 
@@ -227,7 +304,7 @@ def main_game_2():
 
         screen.blit(background_surface, (0, 0), pygame.Rect(background_x, background_y, SCREEN_WIDTH, SCREEN_HEIGHT))
         #dessine le compteur minerai
-        show_ore_screen(screen, font, pygame.image.load("assets/objets_interactibles/Red_crystal1.png"), player.numberOre  )
+        show_ore_screen(screen, font, pygame.image.load("assets/objets_interactibles/Minerai_Lune.png"), player.numberOre  )
 
         # Dessinez l'obstacle
         obstacles_group.update()
@@ -237,7 +314,10 @@ def main_game_2():
         all_sprites.draw(screen)
 
         if(player.numberOre == 5):
-            win_menu()
+            win_menu_2()
+
+        if(ore_vein5.rect.x == 0 and player.numberOre != 5):
+            death_menu(niveau2)
 
         pygame.display.flip()
         pygame.display.update()
@@ -264,7 +344,7 @@ def game_over(player):
             player.step_sound.stop()
             pygame.mixer.Sound.play(player.death_sound)
             pygame.time.wait(1000)
-            death_menu()
+            death_menu(niveau2)
         return True
 # Boucle de jeu
 
