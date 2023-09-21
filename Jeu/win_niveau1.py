@@ -43,7 +43,7 @@ def win_menu():
                 if replay_button_rect.collidepoint(event.pos):
                     # Lorsque le bouton "Rejouer" est cliqué, appelez la fonction main_game de niveau1.py
                     import niveau2
-                    niveau2.main_game()
+                    niveau2.main_game_2()
                 elif quit_button_rect.collidepoint(event.pos):
                     # Lorsque le bouton "Quitter" est cliqué, appelez la fonction show_menu de start.py
                     import start

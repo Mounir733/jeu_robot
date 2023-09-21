@@ -17,7 +17,6 @@ class MagneticObject(InteractiveObject):
     def calculate_field_zone(self, direction):
         object_center = Vector2(self.rect.center)
 
-        # Calculez la zone du champ de force en fonction de la direction spécifiée
         if direction == "right":
             return pygame.Rect(object_center.x, object_center.y - self.rect.height / 2, self.field_range, self.rect.height)
         elif direction == "left":
@@ -29,7 +28,6 @@ class MagneticObject(InteractiveObject):
         
     def interact(self, player): 
         for direction in self.field_directions:
-            # Calculez la zone du champ de force
             field_zone = self.calculate_field_zone(direction)
             if field_zone.colliderect(player.rect):
                 pygame.mixer.Sound.play(self.force_sound)
@@ -40,7 +38,6 @@ class MagneticObject(InteractiveObject):
                 elif direction == "up":
                     player.rect.centery -= self.force * self.magnetic_type
                 elif direction == "down":
-                    print("youpi")
                     player.rect.centery += self.force * self.magnetic_type
             else:
                 self.force_sound.stop()

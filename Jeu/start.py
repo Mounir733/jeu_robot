@@ -80,10 +80,10 @@ def show_menu(unlock_niveau2):
         screen.blit(fond, (0, 0))
         screen.blit(earth, (200, 300))
 
-        earth_text = font.render("Earth", True, WHITE)
+        earth_text = font.render("Terre", True, WHITE)
         screen.blit(earth_text, (240, 260))
 
-        moon_text = font.render("Moon", True, WHITE)
+        moon_text = font.render("Lune", True, WHITE)
         screen.blit(moon_text, (640, 260))
 
         # Créez une surface semi-transparente noire de la même taille que l'image

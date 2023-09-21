@@ -4,15 +4,14 @@ import sys
 # Initialisation de pygame
 pygame.init()
 
+# Variable globale
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
-
-# Variable qui change
 GREEN = (144,238,144)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-font = pygame.font.Font("Jeu/Font/androidnation.ttf", 40)  # Vous pouvez choisir une police personnalisée
-font2 = pygame.font.Font("Jeu/Font/androidnation.ttf", 30)  # Vous pouvez choisir une police personnalisée
+font = pygame.font.Font("Jeu/Font/androidnation.ttf", 40)
+font2 = pygame.font.Font("Jeu/Font/androidnation.ttf", 30)
 
 
 def win_menu_2():
@@ -26,8 +25,8 @@ def win_menu_2():
     pygame.display.set_caption("Victoire")
     win_text = font.render("Vous avez finis le jeu !!", True, GREEN)
     win_text_rect = win_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
-    # Créez des boutons pour "Rejouer" et "Quitter"
 
+    #bouttons quitter et rejouer
     quit_button = font2.render("Quitter", True, WHITE)
     quit_button_rect = quit_button.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100))
 
@@ -39,7 +38,6 @@ def win_menu_2():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 pygame.mixer.music.stop()
                 if quit_button_rect.collidepoint(event.pos):
-                    # Lorsque le bouton "Quitter" est cliqué, appelez la fonction show_menu de start.py
                     import start
                     start.show_menu(unlock_niveau2)
 

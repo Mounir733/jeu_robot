@@ -11,7 +11,6 @@ class UpsideDown(Consumable):
         if self.consumed and self.time_effect > 0:
             self.time_effect -= 1
             player.gravity = -0.04
-            print(self.time_effect)
         else:
             player.gravity = 0.04
             

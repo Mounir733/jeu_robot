@@ -246,7 +246,7 @@ def main_game_2():
     # Vitesse de défilement du fond
     vitesse_fond = 2
 
-    player.jump_power = -6
+    player.jump_power = -5
 
     # Boucle de jeu
     running = True
@@ -323,7 +323,7 @@ def main_game_2():
             win_menu_2()
 
         if(ore_vein5.rect.x == 0 and player.numberOre != 5):
-            death_menu(niveau2)
+            death_menu(niveau2, True)
 
         pygame.display.flip()
         pygame.display.update()
@@ -344,13 +344,12 @@ def show_ore_screen(screen, font, ore_image, ore_collected):
 
 def game_over(player):
     if player.rect.left <=0:
-        print("MORT!")
         player.is_dead = True
         if(player.is_dead == True):
             pygame.mixer.stop()
             pygame.mixer.Sound.play(player.death_sound)
             pygame.time.wait(1000)
-            death_menu(niveau2)
+            death_menu(niveau2, False)
         return True
 # Boucle de jeu
 
