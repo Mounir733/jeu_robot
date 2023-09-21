@@ -31,6 +31,8 @@ def show_menu():
                 if event.key == pygame.K_SPACE:
                     menu = False  # Lancer le jeu principal lorsque la touche Espace est pressée
         fond = pygame.image.load("assets/backgrounds/space.jpg")
+        
+        
         earth = pygame.image.load("assets/planets/Terran_Selected.png")
         earth = pygame.transform.scale(earth, (200, 200))  # Redimensionnez à la taille souhaitée
 
@@ -39,6 +41,13 @@ def show_menu():
 
         screen.blit(fond, (0, 0))
         screen.blit(earth, (200, 300))
+
+        earth_text = font.render("Earth", True, WHITE)
+        screen.blit(earth_text, (240, 260))
+
+        moon_text = font.render("Moon", True, WHITE)
+        screen.blit(moon_text, (640, 260))
+
         # Créez une surface semi-transparente noire de la même taille que l'image
         filter_surface = pygame.Surface(moon.get_size(), pygame.SRCALPHA)
         filter_color = (0, 0, 0, 128)  # Couleur noire avec un niveau de transparence (128)
