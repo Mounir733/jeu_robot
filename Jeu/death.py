@@ -16,6 +16,10 @@ font2 = pygame.font.Font("Jeu/Font/androidnation.ttf", 30)  # Vous pouvez choisi
 
 
 def death_menu():
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('assets/music/gameover.mp3')
+    pygame.mixer.music.set_volume(0.75)
+    pygame.mixer.music.play(1)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Mort")
     death_text = font.render("Vous etes mort !", True, RED)
@@ -33,6 +37,7 @@ def death_menu():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.mixer.music.stop()
                 if replay_button_rect.collidepoint(event.pos):
                     # Lorsque le bouton "Rejouer" est cliqué, appelez la fonction main_game de niveau1.py
                     import niveau1

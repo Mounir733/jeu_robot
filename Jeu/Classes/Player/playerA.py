@@ -45,6 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.step_sound = pygame.mixer.Sound("assets/sound/footsteps1.mp3")
         self.jump_sound = pygame.mixer.Sound("assets/sound/jump1.wav")
         self.attack_sound = pygame.mixer.Sound("assets/sound/attack.mp3")
+        self.death_sound = pygame.mixer.Sound("assets/sound/death.mp3")
         self.jump_sound.set_volume(0.5)
 
 
