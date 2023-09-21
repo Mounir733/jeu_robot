@@ -31,10 +31,12 @@ class Player(pygame.sprite.Sprite):
         self.prev_y = self.rect.y
         self.obstacles_group = obstacles_group  # Passer le groupe d'obstacles à la classe Player
         self.on_platforme = False
-
+        # Sons des actions du joueur
         self.step_sound = pygame.mixer.Sound("assets/sound/footsteps1.mp3")
         self.jump_sound = pygame.mixer.Sound("assets/sound/jump1.wav")
+        self.attack_sound = pygame.mixer.Sound("assets/sound/attack.mp3")
         self.jump_sound.set_volume(0.5)
+
 
 
         # Attributs pour gérer l'animation d'attaque
@@ -109,6 +111,9 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE]:  # Gestion de la touche Espace pour le saut
             self.jump()
         if keys[pygame.K_e]:
+            channel = self.attack_sound.get_num_channels()
+            if not self.attacking:
+                pygame.mixer.Sound.play(self.attack_sound)
             self.attack()  # Appel de la méthode d'attaque lorsque la touche "e" est pressée
 
 
