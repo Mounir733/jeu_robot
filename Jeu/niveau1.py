@@ -6,7 +6,7 @@ from Classes.InteractiveObject.magneticObject import MagneticObject
 from Classes.Obstacle.obstacle import Obstacle
 from Classes.ConsumableObjects.upsideDown import UpsideDown
 from Classes.camera import Camera
-
+from death import death_menu
 # Initialisation de pygame
 pygame.init()
 
@@ -31,30 +31,33 @@ def main_game():
     camera = Camera()
 
     # Créez une instance d'obstacle (ajoutez-le à votre scène)
-    obstacle = Obstacle(1750, 590, "assets/obstacles/big_box.png",100,100)
+    obstacle = Obstacle(1920, 590, "assets/obstacles/big_box.png",100,100)
     obstacles_group = pygame.sprite.Group()
     obstacles_group.add(obstacle)
     camera.setObject(obstacle)
     
-    plateform = Obstacle(1200, 315, "assets/obstacles/plateforme.png",100,50)
+    plateform = Obstacle(1200, 530, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform)
     camera.setObject(plateform)
-    plateform2 = Obstacle(1500, 490, "assets/obstacles/plateforme.png",100,50)
+
+    plateform2 = Obstacle(1500, 490, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform2)
     camera.setObject(plateform2)
-    plateform3 = Obstacle(1400, 210, "assets/obstacles/plateforme.png",100,50)
+
+    plateform3 = Obstacle(1700, 390, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform3)
     camera.setObject(plateform3)
-    plateform4 = Obstacle(1320, 120, "assets/obstacles/plateforme.png",100,50)
-    obstacles_group.add(plateform4)
-    camera.setObject(plateform4)
-    plateform5 = Obstacle(2500, 310, "assets/obstacles/plateforme.png",100,50)
+
+
+    plateform5 = Obstacle(2200, 500, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform5)
     camera.setObject(plateform5)
-    plateform6 = Obstacle(2200, 120, "assets/obstacles/plateforme.png",100,50)
+
+    plateform6 = Obstacle(2600, 420, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform6)
     camera.setObject(plateform6)
-    plateform7 = Obstacle(2900, 490, "assets/obstacles/plateforme.png",100,50)
+    
+    plateform7 = Obstacle(2900, 490, "assets/obstacles/plateforme.png",200,50)
     obstacles_group.add(plateform7)
     camera.setObject(plateform7)
 
@@ -75,7 +78,7 @@ def main_game():
     all_sprites.add(magneticObject)
 
     #Création d'un consomable
-    consomable = UpsideDown(600, 600, "assets/objets_interactibles/consomable.png")
+    consomable = UpsideDown(1600, 600, "assets/objets_interactibles/consomable.png")
     camera.setObject(consomable)
     all_sprites.add(consomable)
 
@@ -184,6 +187,10 @@ def show_ore_screen(screen, font, ore_image, ore_collected):
 def game_over(player):
     if player.rect.left <=0:
         print("MORT!")
+        player.is_dead = True
+        if(player.is_dead == True):
+            pygame.time.wait(1000)
+            death_menu()
         return True
 # Boucle de jeu
 

@@ -10,6 +10,16 @@ class Player(pygame.sprite.Sprite):
         self.images_left = []   # Liste pour stocker les images d'animation orientées vers la gauche
         self.images_jump = []   # Liste pour stocker les images d'animation de saut
         self.image_index = 0    # Indice de l'image actuelle
+
+        # Attributs pour gérer l'animation de mort
+        self.images_death = []  # Liste des images de l'animation de mort
+        self.death_image_index = 0  # Index de l'image de l'animation de mort
+        self.is_dead = False  # Booléen pour déterminer si le joueur est mort
+        self.death_animation_speed = 0.2  # Vitesse de l'animation de mort
+
+        # Compteur de temps pour l'animation de mort
+        self.death_animation_timer = 0
+
         self.load_images()     # Chargez les images dans les listes
         self.image = self.images_right[self.image_index]  # Par défaut, utilisez les images orientées vers la droite
         self.rect = self.image.get_rect()
@@ -41,6 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.image_index_attack = 0
         self.attacking = False
         self.attack_counter = 0  # Compteur pour la temporisation de l'animation
+        
 
 
 
@@ -69,7 +80,11 @@ class Player(pygame.sprite.Sprite):
             self.images_attack_right = [pygame.transform.scale(pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png"),(70,70)) for i in range(20, 28)]
             # Chargez les images pour l'animation d'attaque à gauche (en inversant horizontalement)
             self.images_attack_left = [pygame.transform.flip(img, True, False) for img in self.images_attack_right]
-        
+            # Chargez les images de l'animation de mort
+            for i in range(29, 34):
+                image_death = pygame.image.load(f"assets/robots/OrangeRobot/SeparetedImages/OrangeRobot{i}.png")
+                image_death = pygame.transform.scale(image_death, (70, 70))  # Redimensionnez à la taille souhaitée
+                self.images_death.append(image_death)       
   
     def attack(self):
         # Cette méthode est appelée lorsque le joueur attaque
@@ -191,7 +206,24 @@ class Player(pygame.sprite.Sprite):
                     else:
                         self.image = self.images_left[self.image_index]
                 
+        if self.is_dead:
+            # Si le joueur est mort, jouez l'animation de mort lentement
+            self.death_animation_timer += 1  # Ajustez la valeur pour ralentir ou accélérer l'animation
 
+            if self.death_image_index < len(self.images_death):
+                # Affichez l'image de l'animation de mort correspondante
+                self.image = self.images_death[self.death_image_index]
+
+                # Vérifiez si l'animation de mort est prête pour l'image suivante
+                if self.death_animation_timer >= self.death_animation_speed:
+                    self.death_image_index += 1
+                    self.death_animation_timer = 0
+            else:
+                # L'animation de mort est terminée
+                self.is_dead = False
+                # Réinitialisez l'animation
+                self.death_image_index = 0
+                self.death_animation_timer = 0
             
             
 
