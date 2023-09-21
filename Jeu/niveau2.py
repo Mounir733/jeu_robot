@@ -23,12 +23,12 @@ font = pygame.font.Font(None, 36)
 
 
 # Fonction principale du jeu
-def main_game():
+def main_game_2():
 
 
     # Création de la fenêtre du jeu
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Niveau 1")
+    pygame.display.set_caption("Niveau 2")
     all_sprites = pygame.sprite.Group()
 
     #cration de la camera

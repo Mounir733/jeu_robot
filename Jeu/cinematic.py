@@ -67,7 +67,7 @@ while running:
 
     # Vérifier si le temps de transition est écoulé
     if elapsed_time >= transition_duration:
-        show_menu()  # Sortir de la boucle après la transition
+        show_menu(False)  # Sortir de la boucle après la transition
 
 # Quitter Pygame
 pygame.quit()
