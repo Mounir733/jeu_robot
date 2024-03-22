@@ -1,4 +1,14 @@
-3. Clonez ou téléchargez ce dépôt sur votre machine.
+# Jeu Robot en Pygame
+
+CE jeu est une aventure passionnante qui vous transporte à travers trois planètes différentes : la Terre, la Lune et Mars. Incarnez un robot intrépide et parcourez des niveaux remplis d'obstacles, de plateformes et d'ennemis. Affrontez la gravité variable de chaque planète et utilisez vos compétences pour surmonter les défis uniques de chaque environnement. Explorez des paysages éblouissants, combattez des ennemis redoutables et atteignez votre objectif ultime sur chaque planète pour remporter la victoire. Préparez-vous à une aventure épique à travers l'espace et au-delà !
+## Installation
+
+1. Assurez-vous d'avoir Python installé sur votre système.
+2. Installez Pygame en utilisant pip :
+```bash
+pip install pygame
+```
+4. Clonez ou téléchargez ce dépôt sur votre machine.
 
 ## Comment jouer
 
